@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import InputImageTab from 'components/InputImageTab';
+import Map from 'components/Map';
+import ResultsTab from 'components/ResultsTab';
+import 'App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+    state = {
+        responseData: {}
+    }
+
+    callbackResponse = (newResponseData) => {
+        this.setState(
+            {
+                responseData: newResponseData
+            }
+        );
+        console.log('We got the grand child response data!!!')
+    }
+
+    render () {
+        return (
+        <div>
+            <Header />
+
+            <Container fluid>
+                <Row>
+                    <Col sm={4}>
+                        <InputImageTab appCallback = {this.callbackResponse} />
+                    </Col>
+
+                    <Col sm={5}>
+                        <Map />
+                    </Col>
+
+                    <Col sm={3}>
+                        <ResultsTab />
+                    </Col>
+                </Row>
+            </Container>
+
+            <Footer />
+        </div>
+        );
+    }
 }
 
 export default App;
