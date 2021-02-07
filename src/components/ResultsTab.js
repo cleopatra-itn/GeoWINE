@@ -8,9 +8,22 @@ class ResultsTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: 'entityTab'
-          };
-      }
+            key: 'entityTab',
+            entityData: this.props.resultDataFromApp.entity,
+            newsArticlesData: this.props.resultDataFromApp.newsArticles,
+            eventsData: this.props.resultDataFromApp.events,
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(
+            {
+                entityData: nextProps.resultDataFromApp.entity,
+                newsArticlesData: nextProps.resultDataFromApp.newsArticles,
+                eventsData: nextProps.resultDataFromApp.events,
+            }
+        );
+    }
 
     render () {
         return (
@@ -20,13 +33,19 @@ class ResultsTab extends React.Component {
                 onSelect={(k) => this.setState({ key: k })}
                 >
                 <Tab eventKey="entityTab" title="Entity">
-                    <Entities />
+                    <Entities
+                        data={this.state.entityData}
+                    />
                 </Tab>
                 <Tab eventKey="newsArticlesTab" title="News Articles">
-                    <NewsArticles />
+                    <NewsArticles
+                        data={this.state.newsArticlesData}
+                    />
                 </Tab>
                 <Tab eventKey="EventsTab" title="Events">
-                    <Events />
+                    <Events
+                        data={this.state.eventsData}
+                    />
                 </Tab>
             </Tabs>
         );

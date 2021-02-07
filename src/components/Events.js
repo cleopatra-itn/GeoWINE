@@ -1,9 +1,24 @@
 import React from 'react';
 
 class Events extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: this.props.data
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(
+            {
+                data: nextProps.data
+            }
+        );
+    }
+
     render () {
         return (
-            <p>Events</p>
+            <p>Events: {this.state.data}</p>
         );
     }
 }

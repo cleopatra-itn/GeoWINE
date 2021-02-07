@@ -79,8 +79,8 @@ class SelectImage extends React.Component {
         var data = { id: IMAGES[this.state.activeIndex]['id'] };
         axios.post('/select', data) // submit to api and get results
             .then(response => {
-				this.props.inputImageCallback(response.data); // Pass response data to parent
-				console.log(response.data)
+                this.props.inputImageCallback(response.data); // pass response data to parent
+                console.log(response.data)
 			})
             .catch(error => {
             	this.setState({ errorMessage: error.message });
@@ -90,7 +90,7 @@ class SelectImage extends React.Component {
 
     render () {
         return (
-            <div>
+            <>
                 <ImageGallery
                     items={this.state.items}
                     showNav={this.state.showNav}
@@ -103,7 +103,7 @@ class SelectImage extends React.Component {
                 <Button onClick={this.handleClick} variant="primary" size="lg" block>
                     Guess Location &amp; Get Results
                 </Button>
-            </div>
+            </>
         );
     }
 }

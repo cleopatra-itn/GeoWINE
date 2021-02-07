@@ -10,7 +10,13 @@ import 'App.css';
 class App extends React.Component {
 
     state = {
-        responseData: {}
+        responseData: {},
+        selectedEntity: '',
+        resultData: {
+            entity: 'Entities',
+            newsArticles: 'News articles',
+            events: 'Events'
+        }
     }
 
     callbackResponse = (newResponseData) => {
@@ -19,32 +25,52 @@ class App extends React.Component {
                 responseData: newResponseData
             }
         );
-        console.log('We got the grand child response data!!!')
+        console.log('We got the grand child response data!!!');
+    }
+
+    callbackSelected = (selectedEntityOnMap) => {
+        this.setState(
+            {
+                selectedEntity: selectedEntityOnMap,
+                resultData: {
+                    entity: 'Entities from response',
+                    newsArticles: 'News articles from response',
+                    events: 'Events from response'
+                }
+            }
+        );
+        console.log('Selected entity came to parent!!!');
     }
 
     render () {
         return (
-        <div>
+        <>
             <Header />
 
             <Container fluid>
                 <Row>
                     <Col sm={4}>
-                        <InputImageTab appCallback = {this.callbackResponse} />
+                        <InputImageTab
+                            appCallback={this.callbackResponse}
+                        />
                     </Col>
 
                     <Col sm={5}>
-                        <Map />
+                        <Map
+                            appCallback={this.callbackSelected}
+                        />
                     </Col>
 
                     <Col sm={3}>
-                        <ResultsTab />
+                        <ResultsTab
+                            resultDataFromApp={this.state.resultData}
+                        />
                     </Col>
                 </Row>
             </Container>
 
             <Footer />
-        </div>
+        </>
         );
     }
 }
