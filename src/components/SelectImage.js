@@ -81,11 +81,11 @@ class SelectImage extends React.Component {
             .then(response => {
                 this.props.inputImageCallback(response.data); // pass response data to parent
                 console.log(response.data)
-			})
+			      })
             .catch(error => {
             	this.setState({ errorMessage: error.message });
             	console.error('There was an error!', error);
-        });
+            });
     }
 
     render () {
