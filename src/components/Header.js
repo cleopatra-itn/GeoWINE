@@ -1,32 +1,32 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
+import InfoModal from 'components/InfoModal';
+import ReferenceModal from 'components/ReferenceModal';
 import logo from 'logo.svg';
 
-class Header extends React.Component {
-    render () {
-        return (
-            <Navbar bg="light" expand="lg" className='App-navbar'>
-                <Navbar.Brand href="#home">
-                    <img
-                        alt=""
-                        src={logo}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                    />{' '}
-                    Geolocation Demo
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="#">Info</Nav.Link>
-                        <Nav.Link href="#">GitHub</Nav.Link>
-                        <Nav.Link href="#">Reference</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        );
-    }
+function Header() {
+    return (
+        <Navbar bg="light" expand="lg" className='App-navbar'>
+            <Navbar.Brand href="#home">
+                <img
+                    alt=""
+                    src={logo}
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                />{' '}
+                Geolocation Demo
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <InfoModal />
+                    <ReferenceModal />
+                </Nav>
+            </Navbar.Collapse>
+            <Nav.Link href="https://github.com/cleopatra-itn/geolocation-demo.git" target="_blank">GitHub</Nav.Link>
+        </Navbar>
+    );
 }
 
 export default Header;
