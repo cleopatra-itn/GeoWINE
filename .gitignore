@@ -30,3 +30,5 @@ __pycache__
 
 notes
 src/images/original
+src/images/old_thumbnail
+src/images/old_resized
