@@ -1,0 +1,87 @@
+{
+	"image_path": "media/upload/ui_Q82878_newcastle.jpeg",
+	"image_url": "https://www.ncl.ac.uk/mediav8/study-with-us/Newcastle%20rooftops%20-%20Hero%20Banner.jpg",
+    "true_coords": ["11.4306", "48.7647"],
+    "pred_coords": ["-3.0264218", "53.4052"],
+	"query":{
+		"entity_types": ["Q570116"],
+		"radius": "100"
+	},
+    "retrieved_entities": [{
+                "id": "Q847100",
+                "label": "Varberg Fortress",
+				"en_description": "Varberg Fortress (Swedish: Varbergs f\u00e4stning) is a former fortification in Varberg, Halland County, Sweden, which currently serves as a museum.",
+                "entity_uri": "http://www.wikidata.org/entity/Q847100",
+				"coordinates": ["12.241566666", "57.1043"],
+				"types":{"Q570116":"tourist_attraction"},
+				"image_url": "https://www.ncl.ac.uk/mediav8/study-with-us/Newcastle%20rooftops%20-%20Hero%20Banner.jpg",
+				"image_path": "media/hashcode.jpeg",
+				"image_hash": "fd8437374efjd3f3f3f3ff",
+				"wikipedia_page": "https://en.wikipedia.org/wiki/Varberg_Fortress",
+                "similarity_geolocation": 0.65,
+				"similarity_scene": 0.64,
+				"similarity_obj": 0.60,
+				"similarity_all": 0.50
+            }, {
+                "id": "Q46313",
+                "label": "Buda Castle",
+                "en_description": "Buda Castle (Hungarian: Budav\u00e1ri Palota, German: Burgpalast) is the historical castle and palace complex of the Hungarian kings in Budapest. It was first completed in 1265, but the massive Baroque palace today occupying most of the site was built between 1749 and 1769. The complex in the past was referred to as either the Royal Palace (Hungarian: Kir\u00e1lyi-palota) or the Royal Castle (Hungarian: Kir\u00e1lyi V\u00e1r, German: K\u00f6nigliche Burg). The castle now houses the Hungarian National Gallery and The Budapest History Museum.\nBuda Castle sits on the southern tip of Castle Hill, surrounded by the touristic area known as V\u00e1rnegyed (Castle Quarter), which is famous for medieval, Baroque and Neoclassical houses, churches, public buildings, and monuments. The hill is linked to Clark \u00c1d\u00e1m Square and the Sz\u00e9chenyi Chain Bridge by the Castle Hill Funicular. The castle is a part of the Budapest World Heritage Site, so declared in 1987. The original Royal Palace was ruined during WWII, it was rebuilt in a simplified Stalin Baroque style during the K\u00e1d\u00e1r era.",
+                "entity_uri": "http://www.wikidata.org/entity/Q46313",
+                "coordinates": ["19.039722222", "47.496111111"],
+				"types":{"Q570116":"tourist_attraction"},
+				"image_url": "https://www.ncl.ac.uk/mediav8/study-with-us/Newcastle%20rooftops%20-%20Hero%20Banner.jpg",
+				"image_path": "media/hashcode.jpeg",
+				"image_hash": "fd8437374efjd3f3f3f3ff",
+				"wikipedia_page": "https://en.wikipedia.org/wiki/Varberg_Fortress",
+                "similarity_geolocation": 0.65,
+				"similarity_scene": 0.64,
+				"similarity_obj": 0.60,
+				"similarity_all": 0.50
+            }, {
+                "id": "Q23308",
+                "label": "British Library",
+                "en_description": "The British Library is the national library of the United Kingdom and the largest library in the world by number of items catalogued. It is estimated to contain 170\u2013200 million-plus items from many countries. As a legal deposit library, the British Library receives copies of all books produced in the United Kingdom and Ireland, including a significant proportion of overseas titles distributed in the UK. The Library is a non-departmental public body sponsored by the Department for Digital, Culture, Media and Sport.\nThe British Library is a major research library, with items in many languages and in many formats, both print and digital: books, manuscripts, journals, newspapers, magazines, sound and music recordings, videos, play-scripts, patents, databases, maps, stamps, prints, drawings. The Library's collections include around 14 million books, along with substantial holdings of manuscripts and items dating as far back  as 2000 BC. The library maintains a programme for content acquisition and adds some three million items each year occupying 9.6 kilometres (6 mi) of new shelf space.Prior to 1973, the Library was part of the British Museum. The Library is now located in a purpose-built building on the north side of Euston Road in St Pancras, London (between Euston railway station and St Pancras railway station), and has a document storage centre and reading room near Boston Spa, near Wetherby in West Yorkshire. The St Pancras building was officially opened by Queen Elizabeth II on 25 June 1998, and is classified as a Grade I listed building \"of exceptional interest\" for its architecture and history.",
+                "entity_uri": "http://www.wikidata.org/entity/Q23308",
+                "coordinates": ["-0.126944", "51.529444"],
+				"types":{"Q570116":"tourist_attraction"},
+				"image_url": "https://www.ncl.ac.uk/mediav8/study-with-us/Newcastle%20rooftops%20-%20Hero%20Banner.jpg",
+				"image_path": "media/hashcode.jpeg",
+				"image_hash": "fd8437374efjd3f3f3f3ff",
+				"wikipedia_page": "https://en.wikipedia.org/wiki/Varberg_Fortress",
+                "similarity_geolocation": 0.65,
+				"similarity_scene": 0.64,
+				"similarity_obj": 0.60,
+				"similarity_all": 0.50
+            }, {
+                "id": "Q1753590",
+                "label": "Old Royal Naval College",
+                "en_description": "The Old Royal Naval College is the architectural centrepiece of Maritime Greenwich, a World Heritage Site in Greenwich, London, described by the United Nations Educational, Scientific and Cultural Organisation (UNESCO) as being of \"outstanding universal value\" and reckoned to be the \"finest and most dramatically sited architectural and landscape ensemble in the British Isles\". The site is managed by the Greenwich Foundation for the Old Royal Naval College, set up in July 1998 as a registered charity to \"look after these magnificent buildings and their grounds for the benefit of the nation\". The grounds and some of its buildings are open to visitors. The buildings were originally constructed to serve as the Royal Hospital for Seamen at Greenwich, now generally known as Greenwich Hospital, which was designed by Christopher Wren, and built between 1696 and 1712. The hospital closed in 1869. Between 1873 and 1998 it was the Royal Naval College, Greenwich.",
+                "entity_uri": "http://www.wikidata.org/entity/Q1753590",
+                "coordinates": ["-0.005944444", "51.483666666"],
+				"types":{"Q570116":"tourist_attraction"},
+				"image_url": "https://www.ncl.ac.uk/mediav8/study-with-us/Newcastle%20rooftops%20-%20Hero%20Banner.jpg",
+				"image_path": "media/hashcode.jpeg",
+				"image_hash": "fd8437374efjd3f3f3f3ff",
+				"wikipedia_page": "https://en.wikipedia.org/wiki/Varberg_Fortress",
+                "similarity_geolocation": 0.65,
+				"similarity_scene": 0.64,
+				"similarity_obj": 0.60,
+				"similarity_all": 0.50
+            }, {
+                "id": "Q1481707",
+                "label": "New Elfsborg Fortress",
+                "en_description": "New \u00c4lvsborg, New \u00c4lvsborg Fortress or just \u00c4lvsborg is a large sea fortress in Riv\u00f6 fjord within modern Gothenburg, Sweden. Situated at the mouth of the G\u00f6ta River, it protected medieval Sweden's only access to the North Sea and the Atlantic Ocean, along with the nearby settlement known today as Gothenburg  (formerly named L\u00f6d\u00f6se, Nya L\u00f6d\u00f6se, \u00c4lvsborg and Charles IX's Gothenburg).The original Old \u00c4lvsborg Fortress (Swedish: \u00c4lvsborgs f\u00e4stning or \u00c4lvsborgs slott) was located on the mainland, on the southern shore of the estuary, above modern Klippan. Only few ruins are visible today in the vicinity of the Carnegie-pier.The old fortress was dismantled and relocated to one of the islands in the estuary, in the 17th century. This New \u00c4lvsborg Fortress is still maintained.\nIn 1643, a settlement in New Sweden, North America, was named Fort Nya Elfsborg (\"Fort New \u00c4lvsborg\"), after the Swedish fortress. This settlement was abandoned in 1655. Gothenburg was the main centre for Swedes emigrating to America, and the fortress would have been one of the last sights the emigrants saw on leaving the country.",
+                "entity_uri": "http://www.wikidata.org/entity/Q1481707",
+                "coordinates": ["11.83888889", "57.685"],
+				"types":{"Q570116":"tourist_attraction"},
+				"image_url": "https://www.ncl.ac.uk/mediav8/study-with-us/Newcastle%20rooftops%20-%20Hero%20Banner.jpg",
+				"image_path": "media/hashcode.jpeg",
+				"image_hash": "fd8437374efjd3f3f3f3ff",
+				"wikipedia_page": "https://en.wikipedia.org/wiki/Varberg_Fortress",
+                "similarity_geolocation": 0.65,
+				"similarity_scene": 0.64,
+				"similarity_obj": 0.60,
+				"similarity_all": 0.50
+            }
+        ]
+}
