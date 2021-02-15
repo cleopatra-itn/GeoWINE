@@ -11,11 +11,6 @@ class InputImageTab extends React.Component {
         };
     }
 
-    callbackResponse = (newResponseData) => {
-        console.log('We got the child response data!!!')
-        this.props.appCallback(newResponseData);
-    }
-
     render () {
         return (
             <Tabs
@@ -24,10 +19,10 @@ class InputImageTab extends React.Component {
                 onSelect={(k) => this.setState({ key: k })}
                 >
                 <Tab eventKey="selectImageTab" title="Select">
-                    <SelectImage inputImageCallback={this.callbackResponse} />
+                    <SelectImage inputImageCallback={(newResponseData) => {this.props.appCallback(newResponseData)}} />
                 </Tab>
                 <Tab eventKey="uploadImageTab" title="Upload">
-                    <UploadImage inputImageCallback={this.callbackResponse} />
+                    <UploadImage inputImageCallback={(newResponseData) => {this.props.appCallback(newResponseData)}} />
                 </Tab>
             </Tabs>
         );
