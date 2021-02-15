@@ -1,8 +1,8 @@
 {
     "image_path": "media/upload/ui_Q2981_notreparis.jpeg",
     "image_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Notre-Dame%20de%20Paris%202013-07-24.jpg",
-    "true_coords": ["2.3488266", "48.852448"],
-    "pred_coords": ["2.3498", "48.853"],
+    "true_coords": [48.852448, 2.3488266],
+    "pred_coords": [48.853, 2.3498],
     "query": {
         "entity_types": ["Q570116"],
         "radius": "100"
@@ -12,7 +12,7 @@
             "label": "Notre-Dame de Paris",
             "en_description": "Notre-Dame de Paris (French: [n\u0254t\u0281\u0259 dam d\u0259 pa\u0281i] (listen); meaning \"Our Lady of Paris\"), referred to simply as Notre-Dame, is a medieval Catholic cathedral on the \u00cele de la Cit\u00e9 in the 4th arrondissement of Paris. The cathedral was consecrated to the Virgin Mary and considered to be one of the finest examples of French Gothic architecture. Its pioneering use of the rib vault and flying buttress, its enormous and colourful rose windows, as well as the naturalism and abundance of its sculptural decoration set it apart from the earlier Romanesque style. Major components that make Notre Dame stand out include its large historic organ and its immense church bells.The cathedral's construction began in 1163 under Bishop Maurice de Sully and was largely complete by 1260, though it was modified frequently in the following centuries. In the 1790s, Notre-Dame suffered desecration during the French Revolution; much of its religious imagery was damaged or destroyed. In the 19th century, the cathedral was the site of the coronation of Napoleon I and the funerals of many presidents of the French Republic.\nPopular interest in the cathedral blossomed soon after the 1831 publication of Victor Hugo's novel Notre-Dame de Paris (better known in English as The Hunchback of Notre-Dame). This led to a major restoration project between 1844 and 1864, supervised by Eug\u00e8ne Viollet-le-Duc. The Allied liberation of Paris in 1944 was celebrated within Notre-Dame with the singing of the Magnificat. Beginning in 1963, the cathedral's fa\u00e7ade was cleaned of centuries of soot and grime. Another cleaning and restoration project was carried out between 1991 and 2000.The cathedral is one of the most widely recognized symbols of the city of Paris and the French nation. As the cathedral of the Archdiocese of Paris, Notre-Dame contains the cathedra of the Archbishop of Paris (Michel Aupetit). In 1805, Notre-Dame was given the honorary status of a minor basilica. Approximately 12 million people visit Notre-Dame annually, making it the most visited monument in Paris. The cathedral was renowned for its Lent sermons, founded by the Dominican Jean-Baptiste Henri Lacordaire in the 1830s. In recent years, an increasing number have been given by leading public figures and state-employed academics.\nThe cathedral has been progressively stripped of its original decoration and works of art. Several noteworthy examples of Gothic, Baroque, and 19th-century sculptures and a group of 17th- and early 18th-century altarpieces remain in the cathedral's collection. Some of the most important relics in Christendom, including the Crown of Thorns, a sliver of the true cross and a nail from the true cross, are preserved at Notre-Dame.\nWhile undergoing renovation and restoration, the roof of Notre-Dame caught fire on the evening of 15 April 2019. Burning for around 15 hours, the cathedral sustained serious damage, including the destruction of the fl\u00e8che (the timber spirelet over the crossing) and most of the lead-covered wooden roof above the stone vaulted ceiling. Contamination of the site and the nearby environment resulted. Following the fire, many proposals were made for modernizing the cathedral's design. However, on 29 July 2019, the French National Assembly enacted a law requiring that the restoration must preserve the cathedral's 'historic, artistic and architectural interest'. Stabilizing the structure against possible collapse was completed in November 2020, with reconstruction beginning in 2021. The government of France hopes the reconstruction can be completed by Spring 2024, in time for the opening of the 2024 Summer Olympics in Paris.",
             "entity_uri": "http://www.wikidata.org/entity/Q2981",
-            "coordinates": ["2.3498", "48.853"],
+            "coordinates": [48.853, 2.3498],
             "types": {
                 "Q570116": "tourist_attraction"
             },
@@ -29,7 +29,7 @@
             "label": "Paris-Gare de Lyon",
             "en_description": "The Gare de Lyon (English: Lyon station), officially Paris-Gare-de-Lyon, is one of the six large mainline railway stations in Paris, France. It handles about 148.1 million passengers annually according to the estimates of the SNCF in 2018, with SNCF railways and RER D accounting for around 110 million and 38 million on the RER A, making it the second-busiest station of France after the Gare du Nord and one of the busiest in Europe.\nThe station is located in the 12th arrondissement, on the right bank of the river Seine, in the east of Paris. Opened in 1849, it is the northern terminus of the Paris\u2013Marseille railway. It is named after the city of Lyon, a stop for many long-distance trains departing here, most en route to the South of France.  The station is served by high-speed TGV trains to Southern and Eastern France, Switzerland, Germany, Italy and Spain. The station also hosts regional trains and the RER and also the Gare de Lyon M\u00e9tro station.\nMain line trains depart from 32 platforms in two distinct halls: Hall 1, which is the older train shed, contains tracks labelled with letters from A to N, while the modern addition of Hall 2 contains tracks which are numbered from 5 to 23. There are a further four platforms for the RER underneath the main lines.",
             "entity_uri": "http://www.wikidata.org/entity/Q747541",
-            "coordinates": ["2.373611111", "48.844722222"],
+            "coordinates": [48.844722222, 2.373611111],
             "types": {
                 "Q570116": "tourist_attraction"
             },
@@ -46,7 +46,7 @@
             "label": "Avenue des Champs-\u00c9lys\u00e9es",
             "en_description": "The Avenue des Champs-\u00c9lys\u00e9es (UK: , US: , French: [av(\u0259)ny de \u0283\u0251\u0303z\u203felize] (listen)) is an avenue in the 8th arrondissement of Paris, France, 1.9 kilometres (1.2 mi) long and 70 metres (230 ft) wide, running between the Place de la Concorde and the Place Charles de Gaulle, where the Arc de Triomphe is located. It is known for its theatres, caf\u00e9s, and luxury shops, for the annual Bastille Day military parade, and as the finish of the Tour de France cycling race.\nThe name is French for the Elysian Fields, the place for dead heroes in Greek mythology. Champs-\u00c9lys\u00e9es is widely regarded to be one of the most recognisable avenues in the world.",
             "entity_uri": "http://www.wikidata.org/entity/Q550",
-            "coordinates": ["2.30786", "48.86967"],
+            "coordinates": [48.86967, 2.30786],
             "types": {
                 "Q570116": "tourist_attraction"
             },
@@ -63,7 +63,7 @@
             "label": "Tour Montparnasse",
             "en_description": "Tour Maine-Montparnasse (Maine-Montparnasse Tower), also commonly named Tour Montparnasse, is a 210-metre (689 ft) office skyscraper located in the Montparnasse area of Paris, France. Constructed from 1969 to 1973, it was the tallest skyscraper in France until 2011, when it was surpassed by the 231-metre (758 ft) Tour First. It remains the tallest building in Paris outside of the La D\u00e9fense business district. As of February 2020, it is the 14th tallest building in the European Union. The tower was designed by architects Eug\u00e8ne Beaudouin, Urbain Cassan, and Louis Hoym de Marien and built by Campenon Bernard. On September 21, 2017, Nouvelle AOM won a competition to redesign the building's facade.",
             "entity_uri": "http://www.wikidata.org/entity/Q323767",
-            "coordinates": ["2.32198", "48.84211"],
+            "coordinates": [48.84211, 2.32198],
             "types": {
                 "Q570116": "tourist_attraction"
             },
@@ -80,7 +80,7 @@
             "label": "Eiffel Tower",
             "en_description": "The Eiffel Tower ( EYE-f\u0259l; French: tour Eiffel [tu\u0281\u203f\u025bf\u025bl] (listen)) is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower. \nLocally nicknamed \"La dame de fer\" (French for \"Iron Lady\"), it was constructed from 1887 to 1889 as the entrance to the 1889 World's Fair and was initially criticised by some of France's leading artists and intellectuals for its design, but it has become a global cultural icon of France and one of the most recognisable structures in the world. The Eiffel Tower is the most-visited paid monument in the world; 6.91 million people ascended it in 2015.\nThe tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey building, and the tallest structure in Paris. Its base is square, measuring 125 metres (410 ft) on each side. During its construction, the Eiffel Tower surpassed the Washington Monument to become the tallest man-made structure in the world, a title it held for 41 years until the Chrysler Building in New York City was finished in 1930.  It was the first structure in the world to surpass both the 200 meter and 300 meter mark in height. Due to the addition of a broadcasting aerial at the top of the tower in 1957, it is now taller than the Chrysler Building by 5.2 metres (17 ft). Excluding transmitters, the Eiffel Tower is the second tallest free-standing structure in France after the Millau Viaduct.\nThe tower has three levels for visitors, with restaurants on the first and second levels. The top level's upper platform is 276 m (906 ft) above the ground \u2013 the highest observation deck accessible to the public in the European Union. Tickets can be purchased to ascend by stairs or lift to the first and second levels. The climb from ground level to the first level is over 300 steps, as is the climb from the first level to the second. Although there is a staircase to the top level, it is usually accessible only by lift.",
             "entity_uri": "http://www.wikidata.org/entity/Q243",
-            "coordinates": ["2.294479", "48.858296"],
+            "coordinates": [48.858296, 2.294479],
             "types": {
                 "Q570116": "tourist_attraction"
             },
