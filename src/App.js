@@ -10,36 +10,43 @@ import 'App.css';
 class App extends React.Component {
 
     state = {
-        responseData: {},
-        selectedEntity: '',
-        resultData: {
-            entity: 'Entities',
-            newsArticles: 'News articles',
-            events: 'Events'
+        data: {},
+        fixMapView: true,
+        selectedEntity: {
+            id: '',
+            entity: {},
+            news: [],
+            events: [],
         }
     }
 
     callbackResponse = (newResponseData) => {
         this.setState(
             {
-                responseData: newResponseData
+                data: newResponseData,
+                fixMapView: true,
+                selectedEntity: {
+                    id: '',
+                    entity: {},
+                    news: [],
+                    events: [],
+                },
             }
         );
-        console.log('We got the grand child response data!!!');
     }
 
-    callbackSelected = (selectedEntityOnMap) => {
+    callbackResponseEntity = (newResponseData) => {
         this.setState(
             {
-                selectedEntity: selectedEntityOnMap,
-                resultData: {
-                    entity: 'Entities from response',
-                    newsArticles: 'News articles from response',
-                    events: 'Events from response'
-                }
+                selectedEntity: {
+                    id: newResponseData.id,
+                    entity: this.state.data.retrieved_entities.filter(obj => {return obj.id === newResponseData.id})[0],
+                    news: newResponseData.news,
+                    events: newResponseData.events,
+                },
+                fixMapView: false
             }
         );
-        console.log('Selected entity came to parent!!!');
     }
 
     render () {
@@ -49,7 +56,7 @@ class App extends React.Component {
 
             <Container fluid>
                 <Row>
-                    <Col sm={4}>
+                    <Col sm={3}>
                         <InputImageTab
                             appCallback={this.callbackResponse}
                         />
@@ -57,13 +64,15 @@ class App extends React.Component {
 
                     <Col sm={5}>
                         <Map
-                            appCallback={this.callbackSelected}
+                            data={this.state.data}
+                            fixMapView={this.state.fixMapView}
+                            appCallback={this.callbackResponseEntity}
                         />
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <ResultsTab
-                            resultDataFromApp={this.state.resultData}
+                            dataFromApp={this.state.selectedEntity}
                         />
                     </Col>
                 </Row>
