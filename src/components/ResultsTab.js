@@ -9,18 +9,20 @@ class ResultsTab extends React.Component {
         super(props);
         this.state = {
             key: 'entityTab',
-            entityData: this.props.resultDataFromApp.entity,
-            newsArticlesData: this.props.resultDataFromApp.newsArticles,
-            eventsData: this.props.resultDataFromApp.events,
+            id: this.props.dataFromApp.id,
+            entity: this.props.dataFromApp.entity,
+            news: this.props.dataFromApp.news,
+            events: this.props.dataFromApp.events,
         };
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState(
             {
-                entityData: nextProps.resultDataFromApp.entity,
-                newsArticlesData: nextProps.resultDataFromApp.newsArticles,
-                eventsData: nextProps.resultDataFromApp.events,
+                id: nextProps.dataFromApp.id,
+                entity: nextProps.dataFromApp.entity,
+                news: nextProps.dataFromApp.news,
+                events: nextProps.dataFromApp.events,
             }
         );
     }
@@ -34,19 +36,27 @@ class ResultsTab extends React.Component {
                 >
                 <Tab eventKey="entityTab" title="Entity">
                     <Entities
-                        data={this.state.entityData}
+                        data={this.state.entity}
                     />
                 </Tab>
-                <Tab eventKey="newsArticlesTab" title="News Articles">
-                    <NewsArticles
-                        data={this.state.newsArticlesData}
-                    />
-                </Tab>
-                <Tab eventKey="EventsTab" title="Events">
-                    <Events
-                        data={this.state.eventsData}
-                    />
-                </Tab>
+                {JSON.stringify(this.state.entity) === '{}' ?
+                    <Tab eventKey='disabled' title="News Articles" disabled>
+                    </Tab> :
+                    <Tab eventKey='newsArticlesTab' title="News Articles">
+                        <NewsArticles
+                            data={this.state.news}
+                        />
+                    </Tab>
+                }
+                {JSON.stringify(this.state.entity) === '{}' ?
+                    <Tab eventKey='disabled' title="Events" disabled>
+                    </Tab> :
+                    <Tab eventKey="EventsTab" title="Events">
+                        <Events
+                            data={this.state.events}
+                        />
+                    </Tab>
+                }
             </Tabs>
         );
     }
