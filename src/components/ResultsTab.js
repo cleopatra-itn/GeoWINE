@@ -19,6 +19,7 @@ class ResultsTab extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState(
             {
+                key: JSON.stringify(nextProps.dataFromApp.entity) === '{}' ? 'entityTab' : this.state.key,
                 id: nextProps.dataFromApp.id,
                 entity: nextProps.dataFromApp.entity,
                 news: nextProps.dataFromApp.news,
@@ -31,7 +32,7 @@ class ResultsTab extends React.Component {
         return (
             <Tabs
                 id="controlled-tab-example"
-                activeKey={this.key}
+                activeKey={this.state.key}
                 onSelect={(k) => this.setState({ key: k })}
                 >
                 <Tab eventKey="entityTab" title="Entity">
