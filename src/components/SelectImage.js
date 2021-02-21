@@ -93,11 +93,11 @@ class SelectImage extends React.Component {
 
 
                     <Row style={{marginTop: '1rem'}}>
-                        <Col sm={3}>
+                        <Col xs={3}>
                             <label>Type:</label>
                         </Col>
 
-                        <Col sm={9}>
+                        <Col xs={9}>
                             <Select
                                 value={this.state.selectedTypeOption}
                                 onChange={this.handleTypeChange}
@@ -107,11 +107,11 @@ class SelectImage extends React.Component {
                     </Row>
 
                     <Row style={{marginTop: '0.5rem'}}>
-                        <Col sm={3}>
+                        <Col xs={3}>
                             <label>Radius:</label>
                         </Col>
 
-                        <Col sm={9}>
+                        <Col xs={9}>
                             <Select
                                 value={this.state.selectedRadiusOption}
                                 onChange={this.handleRadiusChange}
