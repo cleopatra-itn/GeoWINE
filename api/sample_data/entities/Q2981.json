@@ -21,9 +21,9 @@
             "image_hash": "fd8437374efjd3f3f3f3ff",
             "wikipedia_page": "https://en.wikipedia.org/wiki/Notre-Dame_de_Paris",
             "similarity_geolocation": 0.76,
-            "similarity_scene": 0.64,
+            "similarity_scene": 0.24,
             "similarity_obj": 0.60,
-            "similarity_all": 0.50
+            "similarity_all": 0.59
         }, {
             "id": "Q747541",
             "label": "Paris-Gare de Lyon",
@@ -37,10 +37,10 @@
             "image_path": "media/hashcode.jpeg",
             "image_hash": "fd8437374efjd3f3f3f3ff",
             "wikipedia_page": "https://en.wikipedia.org/wiki/Notre-Dame_de_Paris",
-            "similarity_geolocation": 0.76,
-            "similarity_scene": 0.64,
-            "similarity_obj": 0.60,
-            "similarity_all": 0.50
+            "similarity_geolocation": 0.66,
+            "similarity_scene": 0.34,
+            "similarity_obj": 0.70,
+            "similarity_all": 0.41
         }, {
             "id": "Q550",
             "label": "Avenue des Champs-\u00c9lys\u00e9es",
@@ -54,10 +54,10 @@
             "image_path": "media/hashcode.jpeg",
             "image_hash": "fd8437374efjd3f3f3f3ff",
             "wikipedia_page": "https://en.wikipedia.org/wiki/Notre-Dame_de_Paris",
-            "similarity_geolocation": 0.76,
-            "similarity_scene": 0.64,
-            "similarity_obj": 0.60,
-            "similarity_all": 0.50
+            "similarity_geolocation": 0.56,
+            "similarity_scene": 0.44,
+            "similarity_obj": 0.10,
+            "similarity_all": 0.39
         }, {
             "id": "Q323767",
             "label": "Tour Montparnasse",
@@ -71,10 +71,10 @@
             "image_path": "media/hashcode.jpeg",
             "image_hash": "fd8437374efjd3f3f3f3ff",
             "wikipedia_page": "https://en.wikipedia.org/wiki/Notre-Dame_de_Paris",
-            "similarity_geolocation": 0.76,
-            "similarity_scene": 0.64,
-            "similarity_obj": 0.60,
-            "similarity_all": 0.50
+            "similarity_geolocation": 0.46,
+            "similarity_scene": 0.54,
+            "similarity_obj": 0.40,
+            "similarity_all": 0.55
         }, {
             "id": "Q243",
             "label": "Eiffel Tower",
@@ -88,10 +88,10 @@
             "image_path": "media/hashcode.jpeg",
             "image_hash": "fd8437374efjd3f3f3f3ff",
             "wikipedia_page": "https://en.wikipedia.org/wiki/Notre-Dame_de_Paris",
-            "similarity_geolocation": 0.76,
+            "similarity_geolocation": 0.36,
             "similarity_scene": 0.64,
-            "similarity_obj": 0.60,
-            "similarity_all": 0.50
+            "similarity_obj": 0.30,
+            "similarity_all": 0.22
         }
     ]
 }

@@ -31,7 +31,7 @@ class Entities extends React.Component {
                     </div>
                     <Card.Body>
                         <Card.Title>{this.state.data.label}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{this.state.data.id} ({Object.values(this.state.data.types)})</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">{this.state.data.id}</Card.Subtitle>
                         <Card.Text className={'cut-text'}>
                             {this.state.data.en_description}
                         </Card.Text>

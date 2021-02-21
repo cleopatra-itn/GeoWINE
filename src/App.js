@@ -5,6 +5,7 @@ import Footer from 'components/Footer';
 import InputImageTab from 'components/InputImageTab';
 import Map from 'components/Map';
 import ResultsTab from 'components/ResultsTab';
+import OrderedResults from  'components/OrderedResults';
 import 'App.css';
 
 class App extends React.Component {
@@ -12,6 +13,7 @@ class App extends React.Component {
     state = {
         data: {},
         fixMapView: true,
+        retrievedEntities: [],
         selectedEntity: {
             id: '',
             entity: {},
@@ -25,6 +27,7 @@ class App extends React.Component {
             {
                 data: newResponseData,
                 fixMapView: true,
+                retrievedEntities: newResponseData.retrieved_entities,
                 selectedEntity: {
                     id: '',
                     entity: {},
@@ -73,6 +76,14 @@ class App extends React.Component {
                     <Col sm={4}>
                         <ResultsTab
                             dataFromApp={this.state.selectedEntity}
+                        />
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <OrderedResults
+                            dataFromApp={this.state.retrievedEntities}
                         />
                     </Col>
                 </Row>
