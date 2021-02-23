@@ -2,8 +2,8 @@ from argparse import ArgumentParser
 from math import ceil
 import torch
 from tqdm.auto import tqdm
-from classification.train_base import MultiPartitioningClassifier
-from classification.dataset import FiveCropImageDataset
+from geo_train_base import MultiPartitioningClassifier
+from geo_dataset import FiveCropImageDataset
 from query_radius import save_radius_entities
 from utils import *
 from utils_image import GeoEstimator
@@ -30,8 +30,8 @@ def parse_args():
     args.add_argument("--num_workers", type=int, default=4)
 
     args.add_argument("--path_output", type=str, default='data')
-    args.add_argument("--path_models", type=Path, default=Path('C:/Users/TahmasebzadehG/PycharmProjects/models'))
-    args.add_argument("--path_entity_images", type=str, default="data/media/entity_images")
+    args.add_argument("--path_models", type=Path, default=Path('models'))
+    args.add_argument("--path_entity_images", type=Path, default=Path("data/media/entity_images"))
     args.add_argument("--dir_input_image", type=Path, default=Path('data/media/user_input_images/'))
 
     return args.parse_args()
@@ -83,8 +83,8 @@ class GeolocationEstimation():
             raise RuntimeError(f"No images found in {image_dir}")
         rows = []
         for X in tqdm(dataloader):
-            #if args.gpu:
-            #    X[0] = X[0].cuda()
+            if args.gpu:
+               X[0] = X[0].cuda()
             img_paths, pred_classes, pred_latitudes, pred_longitudes = model.inference(X)
             print(pred_latitudes)
             for p_key in pred_classes.keys():
@@ -104,10 +104,11 @@ class Embeddings():
         model_path_scene = f"{path_models}/scene/resnet50_places365.pth.tar"
         model_path_loc = f"{path_models}/location/base_M/"
 
-        # set
-        # torch.cuda.set_device(0)
-        # self.DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        # set device
         self.DEVICE = torch.device('cpu')
+        if args.gpu:
+            torch.cuda.set_device(0)
+            self.DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
         self.location_obj = GeoEstimator(model_path_loc, use_cpu=True)
         self.scence_obj = SceneClassificator(model_path=model_path_scene, labels_file=labels, hierarchy_file=hierarchy)
@@ -123,12 +124,10 @@ class Embeddings():
 
 
     def get_embeddings(self, path_entity_images, path_uploaded_image, path_output, radius_entities, hash_input_image):
-        scaler = transforms.Resize((224, 224))
-        to_tensor = transforms.ToTensor()
+            scaler = transforms.Resize((224, 224))
+            to_tensor = transforms.ToTensor()
 
-        for entity_type in radius_entities['retrieved_entities']:
-            ls = radius_entities['retrieved_entities'][entity_type]
-            radius_images_hash = [r['image_hash'] for r in ls]
+            radius_images_hash = [r['image_hash'] for r in radius_entities['retrieved_entities']]
 
             images_path = [path_uploaded_image]
             images_path.extend( [f"{path_entity_images}/{im_hash}.jpeg" for im_hash in radius_images_hash])  # reads entity image hashes from json
@@ -142,7 +141,6 @@ class Embeddings():
                 h5f = h5py.File(HDF5_DIR, 'r+')
             else:
                 h5f = h5py.File(HDF5_DIR, 'a')
-            # processed_ids = []
 
             for i, img in enumerate(images_path):
                     if i==0: # it is input image (since input image is not saved with hash in the input_dir)
@@ -156,7 +154,6 @@ class Embeddings():
                         print(f'====>ID {id} already exists in the dataset!')
                         continue
 
-
                     try:
                         im_pil = Image.open(img).convert('RGB')
                         result = Variable(to_tensor(scaler(im_pil)).to(self.DEVICE).unsqueeze(0))
@@ -165,7 +162,6 @@ class Embeddings():
                         continue
 
                     try:
-                        # result = torch.cat(output, dim=0)
                         resnet_features = self.resnet(result)  # resnet
                         object_features = resnet_features.data.view(result.size(0), 2048).detach().cpu().numpy()[0]
                         location_features = self.location_obj.get_img_embedding(img)
@@ -183,23 +179,16 @@ class Embeddings():
                     h5f.create_dataset(name=f'{id}_all', data=all_features, compression="gzip", compression_opts=9)
                     toc = time.perf_counter()
                     print( f'====> Finished image for id {id} -- {((i + 1) / len(images_path)) * 100:.2f}% -- {toc - tic:0.2f}s')
-                    # processed_ids.append(id)
-
             h5f.close()
-
-
-        print(f'Done with {errors} errors!')
+            print(f'Done with {errors} errors!')
 
 
     def get_similarity(self, path_embeddings, input_image_hash, radius_entities):
-        entity_types = radius_entities['query']['entity_types']
-        embeddings = h5py.File(f'{path_embeddings}/embeddings.h5', 'r')
 
+        embeddings = h5py.File(f'{path_embeddings}/embeddings.h5', 'r')
         sim = {}
 
-        for entity_type in entity_types:
-            # radius_images_hash = [r['image_hash'] for r in radius_entities['retrieved_entities'][entity_type]]
-            for r in radius_entities['retrieved_entities'][entity_type]:
+        for r in radius_entities['retrieved_entities']:
                 entity_hash = r['image_hash']
                 sim[entity_hash] = {}
 
@@ -339,7 +328,7 @@ path_entity_images = args.path_entity_images
 
 
 # user inputs
-input_radiuses = {'street level' :1, 'city level': 25, 'region level': 200, 'country level' :750, 'continent level': 2500}
+input_radiuses = {'street level' :1, 'city level': 25, 'region level': 200, 'country level' :750}
 
 input_radius = input_radiuses['region level']
 input_entities={'Q570116': 'tourist_attraction',
@@ -347,8 +336,8 @@ input_entities={'Q570116': 'tourist_attraction',
                 'Q2065736': 'cultural_property'}
 
 
-dic_data = {'hiroshima.jpeg':{'true':(34.391472, 132.453056), 'pred': (34.3869, 132.4513)},  #hiroshima
-            'noterdam.jpeg':{'true':(48.852448, 2.3488266), 'pred': (48.8531,	2.3494)},  # noterdam
+dic_data = {'hiroshima.jpeg':{'true':(34.391472, 132.453056), 'pred': (34.3869, 132.4513)},
+            'noterdam.jpeg':{'true':(48.852448, 2.3488266), 'pred': (48.8531,	2.3494)},
             'Ptolemaic-Temple-of-Horus-Edfu-Egypt.jpeg':{'true':( 24.977778, 32.873333), 'pred': (23.5966, 32.5727 )},
             'Tabriz-Bazaar-Carpet-Section.jpeg':{'true':(38.080772, 46.292286), 'pred': (31.4477,	52.40519)},
             'times_square.jpeg': {'true': ( 40.75773, -73.985708), 'pred': ( 40.7573, -73.9863)},
