@@ -1,7 +1,7 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 import urllib.request as req
 import wikipediaapi
-from utils import *
+from utils_global import get_file_name, get_root_path, save_file, open_json
 from PIL import Image
 import imagehash
 import os
