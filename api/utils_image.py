@@ -5,7 +5,6 @@ from torch.autograd import Variable as V
 import torchvision.models as models
 from torchvision import transforms as trn
 from torch.nn import functional as F
-
 import csv
 import json
 import logging
@@ -14,11 +13,9 @@ import os
 import re
 import sys
 import tensorflow as tf
-
-
+import cnn_architectures
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(CUR_DIR, 'cnn_architectures'))
-import cnn_architectures
 
 
 class SceneClassificator:
