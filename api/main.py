@@ -26,8 +26,9 @@ def parse_args():
     args = ArgumentParser()
     args.add_argument("--checkpoint", type=Path, default=Path("models/base_M/epoch=014-val_loss=18.4833.ckpt"), help="Checkpoint to already trained model (*.ckpt)" )
     args.add_argument("--gpu",  action="store_true", default=False)
-    args.add_argument("--batch_size", type=int, default=64)
+    args.add_argument("--batch_size", type=int, default=1)
     args.add_argument("--num_workers", type=int, default=4)
+    args.add_argument("--hparams",type=Path,default=Path("models/base_M/hparams.yaml"), help="Path to hparams file (*.yaml) generated during training")
 
     args.add_argument("--path_output", type=str, default='data')
     args.add_argument("--path_models", type=Path, default=Path('models'))
@@ -58,23 +59,23 @@ class GeolocationEstimation():
 
     def geo_esitmation(self):
         image_dir = self.args.dir_input_image
-        # args = self.args
-        # print("Load model from ", args.checkpoint)
-        # model = MultiPartitioningClassifier.load_from_checkpoint(
-        #     checkpoint_path=str(args.checkpoint),
-        #     hparams_file=str(args.hparams),
-        #     map_location=None,
-        # )
+        args = self.args
+        print("Load model from ", args.checkpoint)
+        model = MultiPartitioningClassifier.load_from_checkpoint(
+            checkpoint_path=str(args.checkpoint),
+            hparams_file=str(args.hparams),
+            map_location=None,
+        )
 
-        # print("Init dataloader")
-        # dataloader = torch.utils.data.DataLoader(
-        #     FiveCropImageDataset(meta_csv=None, image_dir=image_dir),
-        #     batch_size=ceil(args.batch_size / 5),
-        #     shuffle=False,
-        #     num_workers=args.num_workers,
-        # )
-        model = self.geo_model
-        dataloader = self.dataloader
+        print("Init dataloader")
+        dataloader = torch.utils.data.DataLoader(
+            FiveCropImageDataset(meta_csv=None, image_dir=image_dir),
+            batch_size=ceil(args.batch_size / 5),
+            shuffle=False,
+            num_workers=args.num_workers,
+        )
+        # model = self.geo_model
+        # dataloader = self.dataloader
 
         model.eval()
         print("Number of images: ", len(dataloader.dataset))
@@ -270,8 +271,7 @@ class NewsArticlesApi():
     def save_news(self, entity_id, path_output, input_image_hash):
         radius_entities0 = open_json(f'{path_output}/radius_entities_{input_image_hash}.json')
         radius_entities = radius_entities0['retrieved_entities']
-        for entity_type in radius_entities.keys():
-            for r in radius_entities[entity_type]:
+        for r in radius_entities:
                 if r['id'] == entity_id:
                     clicked_entity = r
                     break
@@ -300,9 +300,9 @@ class GetResultsInputImage():
                         path_output,
                         embeddings_obj):
             input_img_dir, input_img_name = get_file_name(path_input_image)
-            geo_obj = GeolocationEstimation()
-            lat, lng = geo_obj.geo_esitmation()   #to-do get embeddings from here
-            pred_coords = (round(lat, 4), round(lng, 4))
+            # geo_obj = GeolocationEstimation()
+            # lat, lng = geo_obj.geo_esitmation()   #to-do get embeddings from here
+            # pred_coords = (round(lat, 4), round(lng, 4))
             input_image_hash = self.input_image_hash
             if input_image_hash == None:
                 return 0
@@ -337,14 +337,14 @@ input_entities={'Q570116': 'tourist_attraction',
 
 
 dic_data = {'hiroshima.jpeg':{'true':(34.391472, 132.453056), 'pred': (34.3869, 132.4513)},
-            'noterdam.jpeg':{'true':(48.852448, 2.3488266), 'pred': (48.8531,	2.3494)},
+            'new_image.jpeg':{'true':(48.852448, 2.3488266), 'pred': (48.8531,	2.3494)},
             'Ptolemaic-Temple-of-Horus-Edfu-Egypt.jpeg':{'true':( 24.977778, 32.873333), 'pred': (23.5966, 32.5727 )},
             'Tabriz-Bazaar-Carpet-Section.jpeg':{'true':(38.080772, 46.292286), 'pred': (31.4477,	52.40519)},
             'times_square.jpeg': {'true': ( 40.75773, -73.985708), 'pred': ( 40.7573, -73.9863)},
             'vatican.jpeg': {'true': (41.906389, 12.454444 ), 'pred': (41.9053, 12.4541)},
             'osaka.jpeg':{'true':(34.834, 135.606), 'pred':(38.6042, 141.2442)}
             }
-input_image_name = 'noterdam.jpeg'
+input_image_name = 'new_image.jpeg'
 true_coords = dic_data[input_image_name]['true']
 pred_coords = dic_data[input_image_name]['pred']
 path_input_image = f"{path_output}/media/user_input_images/{input_image_name}"  # upload new image to path_input_image (only one) - all uploaed images will be saved by their hash code in 'archive' folder
