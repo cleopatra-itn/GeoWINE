@@ -1,5 +1,4 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
-import json
 import urllib.request as req
 import wikipediaapi
 from utils import *
@@ -62,15 +61,15 @@ def query_radius_entities(coord, radius, entity_types, entity_labels, path_entit
     if not os.path.exists(path_entities_images):
         os.mkdir(path_entities_images)
 
-    dic_valid_entities = {}
+    valid_entities = []
+    track_ids = []
     count = 0
 
     for entity_type, entity_label in zip(entity_types, entity_labels):
         results = query_radius_pure(entity_type, coord, radius)
         if results ==None:
             continue
-        valid_entities = []
-        track_ids = []
+
 
         for r in results:
 
@@ -108,8 +107,8 @@ def query_radius_entities(coord, radius, entity_types, entity_labels, path_entit
                 count += 1
                 print(count)
                 track_ids.append(id)
-        dic_valid_entities[entity_type] = valid_entities
-    return dic_valid_entities
+
+    return valid_entities
 
 
 
@@ -119,12 +118,11 @@ def save_radius_entities(pred_coords, ture_coords, radius, user_image_id, user_i
     entity_labels = list(input_entities.values())
     if not os.path.exists(output_path):
         os.mkdir(output_path)
-    # lat = 34.38692856
-    # lng = 132.4513397
+
     radius_entities = query_radius_entities(f'Point({lng} {lat})', radius, entity_types, entity_labels, path_entity_images)  # query all the entities within a radius k of the input coord
 
     dic = {
-           'image_path': f'{path_input_image}/{user_image_id}.jpeg',
+           'image_path': f'{path_input_image}',
            'image_url': user_input_image_url,
            'pred_coords': (lat, lng),
            'true_coords': ture_coords,
