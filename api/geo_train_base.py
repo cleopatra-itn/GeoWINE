@@ -4,7 +4,7 @@ import json
 import logging
 from pathlib import Path
 
-import yaml
+# import yaml
 import torch
 import torchvision
 import pytorch_lightning as pl
@@ -12,7 +12,7 @@ import pandas as pd
 
 from classification import utils_global
 from classification.s2_utils import Partitioning, Hierarchy
-from classification.dataset import MsgPackIterableDatasetMultiTargetWithDynLabels
+# from classification.dataset import MsgPackIterableDatasetMultiTargetWithDynLabels
 
 
 class MultiPartitioningClassifier(pl.LightningModule):
@@ -313,73 +313,73 @@ class MultiPartitioningClassifier(pl.LightningModule):
             },
         }
 
-    def train_dataloader(self):
+    # def train_dataloader(self):
+    #
+    #     with open(self.hparams.train_label_mapping, "r") as f:
+    #         target_mapping = json.load(f)
+    #
+    #     tfm = torchvision.transforms.Compose(
+    #         [
+    #             torchvision.transforms.RandomHorizontalFlip(),
+    #             torchvision.transforms.RandomResizedCrop(224, scale=(0.66, 1.0)),
+    #             torchvision.transforms.ToTensor(),
+    #             torchvision.transforms.Normalize(
+    #                 (0.485, 0.456, 0.406), (0.229, 0.224, 0.225)
+    #             ),
+    #         ]
+    #     )
+    #
+    #     dataset = MsgPackIterableDatasetMultiTargetWithDynLabels(
+    #         path=self.hparams.msgpack_train_dir,
+    #         target_mapping=target_mapping,
+    #         key_img_id=self.hparams.key_img_id,
+    #         key_img_encoded=self.hparams.key_img_encoded,
+    #         shuffle=True,
+    #         transformation=tfm,
+    #     )
+    #
+    #     dataloader = torch.utils.data.DataLoader(
+    #         dataset,
+    #         batch_size=self.hparams.batch_size,
+    #         num_workers=self.hparams.num_workers_per_loader,
+    #         pin_memory=True,
+    #     )
+    #     return dataloader
 
-        with open(self.hparams.train_label_mapping, "r") as f:
-            target_mapping = json.load(f)
-
-        tfm = torchvision.transforms.Compose(
-            [
-                torchvision.transforms.RandomHorizontalFlip(),
-                torchvision.transforms.RandomResizedCrop(224, scale=(0.66, 1.0)),
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize(
-                    (0.485, 0.456, 0.406), (0.229, 0.224, 0.225)
-                ),
-            ]
-        )
-
-        dataset = MsgPackIterableDatasetMultiTargetWithDynLabels(
-            path=self.hparams.msgpack_train_dir,
-            target_mapping=target_mapping,
-            key_img_id=self.hparams.key_img_id,
-            key_img_encoded=self.hparams.key_img_encoded,
-            shuffle=True,
-            transformation=tfm,
-        )
-
-        dataloader = torch.utils.data.DataLoader(
-            dataset,
-            batch_size=self.hparams.batch_size,
-            num_workers=self.hparams.num_workers_per_loader,
-            pin_memory=True,
-        )
-        return dataloader
-
-    def val_dataloader(self):
-
-        with open(self.hparams.val_label_mapping, "r") as f:
-            target_mapping = json.load(f)
-
-        tfm = torchvision.transforms.Compose(
-            [
-                torchvision.transforms.Resize(256),
-                torchvision.transforms.CenterCrop(224),
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize(
-                    (0.485, 0.456, 0.406), (0.229, 0.224, 0.225)
-                ),
-            ]
-        )
-        dataset = MsgPackIterableDatasetMultiTargetWithDynLabels(
-            path=self.hparams.msgpack_val_dir,
-            target_mapping=target_mapping,
-            key_img_id=self.hparams.key_img_id,
-            key_img_encoded=self.hparams.key_img_encoded,
-            shuffle=False,
-            transformation=tfm,
-            meta_path=self.hparams.val_meta_path,
-            cache_size=1024,
-        )
-
-        dataloader = torch.utils.data.DataLoader(
-            dataset,
-            batch_size=self.hparams.batch_size,
-            num_workers=self.hparams.num_workers_per_loader,
-            pin_memory=True,
-        )
-
-        return dataloader
+    # def val_dataloader(self):
+    #
+    #     with open(self.hparams.val_label_mapping, "r") as f:
+    #         target_mapping = json.load(f)
+    #
+    #     tfm = torchvision.transforms.Compose(
+    #         [
+    #             torchvision.transforms.Resize(256),
+    #             torchvision.transforms.CenterCrop(224),
+    #             torchvision.transforms.ToTensor(),
+    #             torchvision.transforms.Normalize(
+    #                 (0.485, 0.456, 0.406), (0.229, 0.224, 0.225)
+    #             ),
+    #         ]
+    #     )
+    #     dataset = MsgPackIterableDatasetMultiTargetWithDynLabels(
+    #         path=self.hparams.msgpack_val_dir,
+    #         target_mapping=target_mapping,
+    #         key_img_id=self.hparams.key_img_id,
+    #         key_img_encoded=self.hparams.key_img_encoded,
+    #         shuffle=False,
+    #         transformation=tfm,
+    #         meta_path=self.hparams.val_meta_path,
+    #         cache_size=1024,
+    #     )
+    #
+    #     dataloader = torch.utils.data.DataLoader(
+    #         dataset,
+    #         batch_size=self.hparams.batch_size,
+    #         num_workers=self.hparams.num_workers_per_loader,
+    #         pin_memory=True,
+    #     )
+    #
+    #     return dataloader
 
 
 def parse_args():
@@ -388,44 +388,44 @@ def parse_args():
     args.add_argument("--progbar", action="store_true")
     return args.parse_args()
 
-
-def main():
-    args = parse_args()
-    logging.basicConfig(level=logging.INFO)
-
-    with open(args.config) as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
-
-    model_params = config["model_params"]
-    trainer_params = config["trainer_params"]
-
-    utils_global.check_is_valid_torchvision_architecture(model_params["arch"])
-
-    out_dir = Path(config["out_dir"]) / datetime.now().strftime("%y%m%d-%H%M")
-    out_dir.mkdir(exist_ok=True, parents=True)
-    logging.info(f"Output directory: {out_dir}")
-
-    # init classifier
-    model = MultiPartitioningClassifier(hparams=Namespace(**model_params))
-
-    logger = pl.loggers.TensorBoardLogger(save_dir=str(out_dir), name="tb_logs")
-    checkpoint_dir = out_dir / "ckpts" / "{epoch:03d}-{val_loss:.4f}"
-    checkpointer = pl.callbacks.model_checkpoint.ModelCheckpoint(checkpoint_dir)
-
-    progress_bar_refresh_rate = 0
-    if args.progbar:
-        progress_bar_refresh_rate = 1
-
-    trainer = pl.Trainer(
-        **trainer_params,
-        logger=logger,
-        val_check_interval=model_params["val_check_interval"],
-        checkpoint_callback=checkpointer,
-        progress_bar_refresh_rate=progress_bar_refresh_rate,
-    )
-
-    trainer.fit(model)
-
-
-if __name__ == "__main__":
-    main()
+#
+# def main():
+#     args = parse_args()
+#     logging.basicConfig(level=logging.INFO)
+#
+#     with open(args.config) as f:
+#         config = yaml.load(f, Loader=yaml.FullLoader)
+#
+#     model_params = config["model_params"]
+#     trainer_params = config["trainer_params"]
+#
+#     utils_global.check_is_valid_torchvision_architecture(model_params["arch"])
+#
+#     out_dir = Path(config["out_dir"]) / datetime.now().strftime("%y%m%d-%H%M")
+#     out_dir.mkdir(exist_ok=True, parents=True)
+#     logging.info(f"Output directory: {out_dir}")
+#
+#     # init classifier
+#     model = MultiPartitioningClassifier(hparams=Namespace(**model_params))
+#
+#     logger = pl.loggers.TensorBoardLogger(save_dir=str(out_dir), name="tb_logs")
+#     checkpoint_dir = out_dir / "ckpts" / "{epoch:03d}-{val_loss:.4f}"
+#     checkpointer = pl.callbacks.model_checkpoint.ModelCheckpoint(checkpoint_dir)
+#
+#     progress_bar_refresh_rate = 0
+#     if args.progbar:
+#         progress_bar_refresh_rate = 1
+#
+#     trainer = pl.Trainer(
+#         **trainer_params,
+#         logger=logger,
+#         val_check_interval=model_params["val_check_interval"],
+#         checkpoint_callback=checkpointer,
+#         progress_bar_refresh_rate=progress_bar_refresh_rate,
+#     )
+#
+#     trainer.fit(model)
+#
+#
+# if __name__ == "__main__":
+#     main()
