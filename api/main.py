@@ -2,10 +2,10 @@ from argparse import ArgumentParser
 from math import ceil
 import torch
 from tqdm.auto import tqdm
-from geo_train_base import MultiPartitioningClassifier
-from geo_dataset import FiveCropImageDataset
+from utils_global import MultiPartitioningClassifier
+from utils_global import FiveCropImageDataset
 from query_radius import save_radius_entities
-from utils import *
+from utils_global import get_file_name, get_root_path, save_file, open_json
 from utils_image import GeoEstimator
 from utils_image import SceneClassificator
 import torchvision.models as models
@@ -22,18 +22,29 @@ from eventregistry import EventRegistry, QueryArticlesIter
 import imagehash
 import shutil
 
+if not os.path.exists('data'):
+    os.mkdir('data')
+if not os.path.exists('data/media'):
+    os.mkdir('data/media')
+if not os.path.exists('data/media/entity_images'):
+    os.mkdir('data/media/entity_images')
+if not os.path.exists('data/media/user_input_images'):
+    os.mkdir('data/media/user_input_images')
+if not os.path.exists('data/media/user_input_images_archive'):
+    os.mkdir('data/media/user_input_images_archive')
+
 def parse_args():
     args = ArgumentParser()
-    args.add_argument("--checkpoint", type=Path, default=Path("models/base_M/epoch=014-val_loss=18.4833.ckpt"), help="Checkpoint to already trained model (*.ckpt)" )
+    args.add_argument("--checkpoint", type=str, default="models/base_M/epoch=014-val_loss=18.4833.ckpt", help="Checkpoint to already trained model (*.ckpt)" )
     args.add_argument("--gpu",  action="store_true", default=False)
     args.add_argument("--batch_size", type=int, default=1)
     args.add_argument("--num_workers", type=int, default=4)
-    args.add_argument("--hparams",type=Path,default=Path("models/base_M/hparams.yaml"), help="Path to hparams file (*.yaml) generated during training")
+    args.add_argument("--hparams",type=str,default="models/base_M/hparams.yaml", help="Path to hparams file (*.yaml) generated during training")
 
     args.add_argument("--path_output", type=str, default='data')
-    args.add_argument("--path_models", type=Path, default=Path('models'))
-    args.add_argument("--path_entity_images", type=Path, default=Path("data/media/entity_images"))
-    args.add_argument("--dir_input_image", type=Path, default=Path('data/media/user_input_images/'))
+    args.add_argument("--path_models", type=str, default='models')
+    args.add_argument("--path_entity_images", type=str, default="data/media/entity_images")
+    args.add_argument("--dir_input_image", type=str, default='data/media/user_input_images/')
 
     return args.parse_args()
 
