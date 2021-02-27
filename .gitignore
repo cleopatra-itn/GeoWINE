@@ -29,6 +29,7 @@ venv
 __pycache__
 data
 models
+embeddings.h5
 
 notes
 src/images/original

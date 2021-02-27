@@ -3,6 +3,7 @@ import os
 import re
 import sys
 import csv
+import h5py
 import json
 import torch
 import logging
@@ -24,37 +25,65 @@ ROOT_PATH = Path(os.path.dirname(__file__))
 
 class Embedding:
     def __init__(self):
-        self.object_model = ObjectEmbedding()
-        self.location_model = LocationEmbedding()
-        self.scene_model = SceneEmbedding()
+        self.models = {
+            'object': ObjectEmbedding(),
+            'location': LocationEmbedding(),
+            'scene': SceneEmbedding(),
+            'all': AllEmbedding()
+        }
+        self.cached_embeddings = h5py.File(f'{ROOT_PATH}/embeddings.h5', 'a')
 
-    def _object_embedding(self, image):
-        return self.object_model.embed(image)
+    def _get_from_cache(self, id):
+        return self.cached_embeddings[id]
 
-    def _location_embedding(self, image):
-        return self.location_model.embed(image)
+    def _add_to_cache(self, id, embedding):
+        self.cached_embeddings.create_dataset(name=id, data=embedding, compression="gzip", compression_opts=9)
 
-    def _scene_embedding(self, image):
-        return self.scene_model.embed(image)
+    def _embedding(self, image, id, embed_type):
+        if id is not None and f'{id}_{embed_type}' in self.cached_embeddings:
+            embedding = self._get_from_cache(f'{id}_{embed_type}')
+        else:
+            embedding = self.models[embed_type].embed(image)
+            if id is not None:
+                self._add_to_cache(f'{id}_{embed_type}', embedding)
 
-    def _all_embedding(self, obj, loc, scene):
-        return np.concatenate((np.concatenate((loc, scene)), obj))
+        return embedding
 
-    def embed_pil_image(self, image):
-        obj = self._object_embedding(image)
-        loc = self._location_embedding(image)
-        scene = self._scene_embedding(image)
+    def _object_embedding(self, image, id):
+        return self._embedding(image, id, 'object')
 
-        return {
+    def _location_embedding(self, image, id):
+        return self._embedding(image, id, 'location')
+
+    def _scene_embedding(self, image, id):
+        return self._embedding(image, id, 'scene')
+
+    def _all_embedding(self, embeddings, id):
+        return self._embedding(embeddings, id, 'all')
+
+    def embed_pil_image(self, image, id=None):
+        obj = self._object_embedding(image, id)
+        loc = self._location_embedding(image, id)
+        scene = self._scene_embedding(image, id)
+
+        embeddings = {
             'object': obj,
             'location': loc,
-            'scene': scene,
-            'all': self._all_embedding(obj, loc, scene)
+            'scene': scene
         }
 
-    def embed_url_image(self, image_url):
+        return {
+            **embeddings,
+            'all': self._all_embedding(embeddings, id)
+        }
+
+    def embed_url_image(self, image_url, id=None):
         image = ImageReader.read_from_url(image_url)
-        return self.embed_pil_image(image)
+        return self.embed_pil_image(image, id)
+
+class AllEmbedding():
+    def embed(self, embeddings):
+        return np.concatenate((np.concatenate((embeddings['location'], embeddings['scene'])), embeddings['object']))
 
 class ObjectEmbedding:
     def __init__(self):

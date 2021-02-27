@@ -29,11 +29,11 @@ class GeoWINE():
     def _predict_coordinates(self, image):
         return self.geolocation_model.predict(image)
 
-    def _get_embeddings_from_pil(self, image):
-        return self.embedding_model.embed_pil_image(image)
+    def _get_embeddings_from_pil(self, image, id=None):
+        return self.embedding_model.embed_pil_image(image, id)
 
-    def _get_embeddings_from_url(self, url):
-        return self.embedding_model.embed_url_image(url)
+    def _get_embeddings_from_url(self, url, id=None):
+        return self.embedding_model.embed_url_image(url, id)
 
     def _get_similarity(self, u, v):
         return Cosine.similarity(u, v)
@@ -49,7 +49,7 @@ class GeoWINE():
         input_img_embed = self._get_embeddings_from_pil(image)
 
         for entity in entities:
-            entity_img_embed = self._get_embeddings_from_url(entity['image_url'])
+            entity_img_embed = self._get_embeddings_from_url(entity['image_url'], entity['id'])
 
             entity['similarity'] = {
                 'object': self._get_similarity(input_img_embed['object'], entity_img_embed['object']),
@@ -119,9 +119,11 @@ class GeoWINE():
 # true_coords = dic_data[input_image_name]['true']
 # pred_coords = dic_data[input_image_name]['pred']
 
-# path_input_image = f"/data/s6enkacu/Projects/geolocation-demo/api/data/media/user_input_images/hiroshima.jpeg"
+# path_input_image = f"/data/s6enkacu/Projects/geolocation-demo/api/data/media/user_input_images/notreparis.jpg"
 
 # geo_wine = GeoWINE()
-# ent_res = geo_wine.retrieve_entities_with_image_path(path_input_image, true_coords=[34.391472, 132.453056])
+# ent_res = geo_wine.retrieve_entities_with_image_path(path_input_image, radius=1, true_coords=[48.852737, 2.350699])
+
+# ent_res2 = geo_wine.retrieve_entities_with_image_path(path_input_image, radius=1, true_coords=[48.852737, 2.350699])
 
 # news_events_res = geo_wine.retrieve_news_events(ent_res['retrieved_entities'][0])
