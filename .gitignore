@@ -27,8 +27,13 @@ yarn-error.log*
 # api
 venv
 __pycache__
+data
+models
 
 notes
 src/images/original
 src/images/old_thumbnail
 src/images/old_resized
+
+# EventRegistry API Key
+ER_API_KEY
