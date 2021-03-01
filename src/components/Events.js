@@ -20,15 +20,15 @@ class Events extends React.Component {
     render () {
         return (
             <Card className={'border-light mb-3'} style={{height: "510px", overflowY: "auto", padding: '1.25rem'}}>
-                {this.state.data.map((event, _) => (
+                {this.state.data.sort((a, b) => (a.date > b.date) ? -1 : 1).map((event, _) => (
                     <Card className="border-light mb-3">
                         <Card.Body>
-                            <Card.Title>{event.title}</Card.Title>
+                            <Card.Title>{event.label}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">{event.date}</Card.Subtitle>
                             <Card.Text className={'cut-text'}>
-                                {event.description}
+                                {event.en_description}
                             </Card.Text>
-                            <Card.Link href='http://oekg.l3s.uni-hannover.de/' target='_blank'>Read more</Card.Link>
+                            <Card.Link href={event.oekg_uri} target='_blank'>Read more</Card.Link>
                         </Card.Body>
                     </Card>
                 ))}
