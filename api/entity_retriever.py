@@ -1,5 +1,55 @@
+import os
+import json
 import wikipediaapi
+from pathlib import Path
 from SPARQLWrapper import SPARQLWrapper, JSON
+
+ROOT_PATH = Path(os.path.dirname(__file__))
+
+BASE_QUERY = f"""
+            SELECT ?place ?location
+            WHERE{{
+
+            ?place wdt:P31 wd:WID .
+
+            SERVICE wikibase:around
+            {{
+                ?place wdt:P625 ?location .
+                bd:serviceParam wikibase:center "Point(LNG LAT)"^^geo:wktLiteral .
+                bd:serviceParam wikibase:radius RADIUS .
+            }}
+
+            SERVICE wikibase:label
+            {{
+                bd:serviceParam wikibase:language "en" .
+            }}
+            }}
+
+            """
+
+COMPLETE_QUERY = f"""
+            SELECT ?place ?placeLabel ?location ?image ?ensummarylink ?commons
+            WHERE{{
+
+            ?place wdt:P31 wd:WID .
+            ?place wdt:P18 ?image .
+            ?place wdt:P373 ?commons .
+
+            SERVICE wikibase:around
+            {{
+                ?place wdt:P625 ?location .
+                bd:serviceParam wikibase:center "Point(LNG LAT)"^^geo:wktLiteral .
+                bd:serviceParam wikibase:radius RADIUS .
+            }}
+
+            ?ensummarylink schema:isPartOf <https://en.wikipedia.org/>; # Get item english wikipedia
+                schema:about ?place .
+            SERVICE wikibase:label
+            {{
+                bd:serviceParam wikibase:language "en" .
+            }}
+            }}
+            """
 
 class EntityRetriever:
     def __init__(self):
@@ -7,10 +57,11 @@ class EntityRetriever:
         self.user_agent = 'Myy User Agent 1.0'
         self.sparql = SPARQLWrapper(self.wikidata_endpoint, agent=self.user_agent)
         self.wikipedia = wikipediaapi.Wikipedia('en')
+        self.cached_entities = {ent['id']: ent for ent in json.load(open(f'{ROOT_PATH}/entities_cached.json'))}
 
     def retrieve(self, coords, radius, entity_type):
         geo_query_res = self._run_geospatial_wikidata_query(coords, radius, entity_type)
-        return self._process_results(geo_query_res)
+        return self._process_results_cached(geo_query_res)
 
     def _get_query_results(self, query):
         self.sparql.setQuery(query)
@@ -19,25 +70,10 @@ class EntityRetriever:
         return self.sparql.query().convert()
 
     def _run_geospatial_wikidata_query(self, coords, radius, entity_type):
-        query = f"""SELECT ?place ?placeLabel ?location ?image ?ensummarylink ?commons
-            WHERE{{
-
-            ?place wdt:P31 wd:{entity_type} .
-            ?place wdt:P18 ?image .
-            ?place wdt:P373 ?commons .
-
-            SERVICE wikibase:around
-            {{
-                ?place wdt:P625 ?location .
-                bd:serviceParam wikibase:center "Point({coords['lng']} {coords['lat']})"^^geo:wktLiteral .
-                bd:serviceParam wikibase:radius {radius} .
-            }}
-
-            ?ensummarylink schema:isPartOf <https://en.wikipedia.org/>; # Get item english wikipedia
-                schema:about ?place .
-            SERVICE wikibase:label{{bd:serviceParam wikibase:language "en" .
-            }}
-            }}"""
+        query = BASE_QUERY.replace('WID', entity_type)\
+                        .replace('LNG', str(coords['lng']))\
+                        .replace('LAT', str(coords['lat']))\
+                        .replace('RADIUS', str(radius))
 
         try:
             results = self._get_query_results(query)
@@ -83,6 +119,21 @@ class EntityRetriever:
                 'wikimedia_commons': f"https://commons.wikimedia.org/wiki/Category:{r['commons']['value'].replace(' ', '_')}"
             })
 
+            seen_ids.add(id)
+
+        return entities
+
+    def _process_results_cached(self, results):
+        entities = []
+        seen_ids = set()
+
+        for r in results:
+            id = r['place']['value'].split('/')[-1]
+
+            if id in seen_ids or id not in self.cached_entities:
+                continue
+
+            entities.append(self.cached_entities[id])
             seen_ids.add(id)
 
         return entities
