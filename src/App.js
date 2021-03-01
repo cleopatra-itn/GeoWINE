@@ -6,6 +6,7 @@ import InputImageTab from 'components/InputImageTab';
 import Map from 'components/Map';
 import ResultsTab from 'components/ResultsTab';
 import OrderedResults from  'components/OrderedResults';
+import LoaderOverlay from  'components/LoaderOverlay';
 import 'App.css';
 
 class App extends React.Component {
@@ -88,6 +89,8 @@ class App extends React.Component {
                     </Col>
                 </Row>
             </Container>
+
+            <LoaderOverlay />
 
             <Footer />
         </>
