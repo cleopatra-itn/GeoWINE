@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import axios from 'axios';
+import $ from 'jquery';
 import 'leaflet/dist/leaflet.css';
 import iconEntity from 'images/leaflet/marker-entity.png';
 import iconModel from 'images/leaflet/marker-model.png';
@@ -80,13 +81,20 @@ class Map extends React.Component {
     }
 
     handleClick (event) {
-        var data = { id: event.target.options.id };
-        axios.post('/select_image_news_events', data)
+        var data = {
+            id: event.target.options.id,
+            label: this.state.data.retrieved_entities.filter(obj => {return obj.id === event.target.options.id})[0].label
+        };
+        $("#overlay").fadeIn(300);
+        axios.post('/api/select_image_news_events', data)
             .then(response => {
+                console.log(response.data)
+                $("#overlay").fadeOut(300);
                 this.props.appCallback(response.data);
 			})
             .catch(error => {
             	this.setState({ errorMessage: error.message });
+                $("#overlay").fadeOut(300);
             	console.error('There was an error while requesting results for the selected image!', error);
             });
     }
@@ -118,7 +126,7 @@ class Map extends React.Component {
                                 position={this.state.modelCenter}
                                 icon={ModelIcon}>
                                 <Popup>
-                                    Model prediction: {this.state.modelCenter[0]}, {this.state.modelCenter[1]}
+                                    Model prediction: {this.state.modelCenter.lat}, {this.state.modelCenter.lng}
                                 </Popup>
                             </Marker> : <></>}
                             {this.state.entities.length > 0 ?
@@ -126,7 +134,7 @@ class Map extends React.Component {
                                 position={this.state.trueCenter}
                                 icon={GoldIcon}>
                                 <Popup>
-                                    Ground truth: {this.state.trueCenter[0]}, {this.state.trueCenter[1]}
+                                    Ground truth: {this.state.trueCenter.lat}, {this.state.trueCenter.lng}
                                 </Popup>
                             </Marker> : <></>}
                         </MapContainer>
