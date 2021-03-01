@@ -1,9 +1,13 @@
-from embedding import Embedding
 from news import NewsArticlesApi
 from utils import ImageCropper, Cosine, ImageReader
 from geolocation import GeolocationEstimator
 from entity_retriever import EntityRetriever
 from events import OekgEventsApi
+
+import warnings
+with warnings.catch_warnings():
+    warnings.filterwarnings('ignore')
+    from embedding import Embedding
 
 class GeoWINE():
     '''
@@ -16,6 +20,7 @@ class GeoWINE():
         self.entity_retriever = EntityRetriever()
         self.news_api = NewsArticlesApi()
         self.events_api = OekgEventsApi()
+        print('Loaded GeoWINE successfully.')
 
     def _read_image_from_path(self, path):
         return ImageReader.read_from_path(path)
@@ -35,6 +40,9 @@ class GeoWINE():
     def _get_embeddings_from_url(self, url, id=None):
         return self.embedding_model.embed_url_image(url, id)
 
+    def _get_embeddings_from_cache(self, id):
+        return self.embedding_model.get_cached_embeddings(id)
+
     def _get_similarity(self, u, v):
         return Cosine.similarity(u, v)
 
@@ -43,13 +51,24 @@ class GeoWINE():
 
     def _retrieve_entities(self, image, radius, entity_type, true_coords=None):
         image_cropped = self._crop_image(image)
+        print('Image cropped done!')
         pred_coords = self._predict_coordinates(image_cropped)
+        print('Predict coordinates done!')
+        print(f'Predicted coordinates: {pred_coords}')
+        print(f'Retrieving entities...')
         entities = self._get_entities(pred_coords, radius, entity_type)
+        print(f'Retrieving entities done!')
+
+        print(f'Creating embeddings...')
 
         input_img_embed = self._get_embeddings_from_pil(image)
 
+        retrieved_entities = []
         for entity in entities:
-            entity_img_embed = self._get_embeddings_from_url(entity['image_url'], entity['id'])
+            entity_img_embed = self._get_embeddings_from_cache(entity['id'])
+
+            if entity_img_embed is None:
+                continue
 
             entity['similarity'] = {
                 'object': self._get_similarity(input_img_embed['object'], entity_img_embed['object']),
@@ -57,6 +76,8 @@ class GeoWINE():
                 'scene': self._get_similarity(input_img_embed['scene'], entity_img_embed['scene']),
                 'all': self._get_similarity(input_img_embed['all'], entity_img_embed['all'])
             }
+
+            retrieved_entities.append(entity)
 
         true_coord_dict = {}
         if true_coords is not None:
@@ -72,7 +93,7 @@ class GeoWINE():
                     'radius': radius,
                     'entity_type': entity_type
                     },
-                'retrieved_entities': entities
+                'retrieved_entities': retrieved_entities
             },
             **true_coord_dict
         }
@@ -97,29 +118,7 @@ class GeoWINE():
             'events': self._get_events((entity['id']))
         }
 
-
-# input_radiuses = {'street level' :1, 'city level': 25, 'region level': 200, 'country level' :750}
-
-# input_radius = input_radiuses['region level']
-# input_entities={'Q570116': 'tourist_attraction',
-#                 'Q839954': 'archaeological_site',
-#                 'Q2065736': 'cultural_property'}
-
-
-# dic_data = {'hiroshima.jpeg':{'true':(34.391472, 132.453056), 'pred': (34.3869, 132.4513)},
-#             'new_image.jpeg':{'true':(48.852448, 2.3488266), 'pred': (48.8531,	2.3494)},
-#             'Ptolemaic-Temple-of-Horus-Edfu-Egypt.jpeg':{'true':( 24.977778, 32.873333), 'pred': (23.5966, 32.5727 )},
-#             'Tabriz-Bazaar-Carpet-Section.jpeg':{'true':(38.080772, 46.292286), 'pred': (31.4477,	52.40519)},
-#             'times_square.jpeg': {'true': ( 40.75773, -73.985708), 'pred': ( 40.7573, -73.9863)},
-#             'vatican.jpeg': {'true': (41.906389, 12.454444 ), 'pred': (41.9053, 12.4541)},
-#             'osaka.jpeg':{'true':(34.834, 135.606), 'pred':(38.6042, 141.2442)}
-#             }
-
-# input_image_name = 'hiroshima.jpeg'
-# true_coords = dic_data[input_image_name]['true']
-# pred_coords = dic_data[input_image_name]['pred']
-
-# path_input_image = f"/data/s6enkacu/Projects/geolocation-demo/api/data/media/user_input_images/notreparis.jpg"
+# path_input_image = f"/data/s6enkacu/Projects/geolocation-demo/api/sample_images/notreparis.jpg"
 
 # geo_wine = GeoWINE()
 # ent_res = geo_wine.retrieve_entities_with_image_path(path_input_image, radius=1, true_coords=[48.852737, 2.350699])
