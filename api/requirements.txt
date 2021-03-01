@@ -1,11 +1,16 @@
-torch == 1.7.1
-pytorch-lightning == 1.0.1
-tensorflow == 1.14.0
-torchvision == 0.4.1
-pandas == 1.2.2
+pytorch_lightning==1.2.0
+pandas==1.2.2
+Flask==1.1.2
+eventregistry==8.9
+h5py==2.10.0
+torch==1.4.0
+scipy==1.4.1
+numpy==1.19.2
+Wikipedia_API==0.5.4
 s2sphere==0.2.5
-tqdm == 4.50
-SPARQLWrapper== 1.8.5
-wikipedia-api == 0.5.4
-imagehash == 4.2.0
-eventregistry == 8.9
+tensorflow==1.14.0
+requests==2.23.0
+torchvision==0.5.0
+Pillow==8.1.0
+SPARQLWrapper==1.8.5
+wikipediaapi==0.1.1
