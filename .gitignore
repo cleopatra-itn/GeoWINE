@@ -30,6 +30,8 @@ __pycache__
 data
 models
 embeddings.h5
+entities_cached.json
+entities.json
 
 notes
 src/images/original
