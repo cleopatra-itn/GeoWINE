@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootswatch": "^4.6.0",
+    "jquery": "^3.5.1",
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
