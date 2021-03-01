@@ -1,5 +1,7 @@
 import io
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['HDF5_USE_FILE_LOCKING'] = 'FALSE'
 import re
 import sys
 import csv
@@ -7,6 +9,7 @@ import h5py
 import json
 import torch
 import logging
+logging.getLogger('tensorflow').disabled = True
 import numpy as np
 import torch.nn as nn
 import tensorflow as tf
@@ -23,6 +26,8 @@ sys.path.append(os.path.join(CUR_DIR, 'cnn_architectures'))
 
 ROOT_PATH = Path(os.path.dirname(__file__))
 
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
 class Embedding:
     def __init__(self):
         self.models = {
@@ -31,7 +36,7 @@ class Embedding:
             'scene': SceneEmbedding(),
             'all': AllEmbedding()
         }
-        self.cached_embeddings = h5py.File(f'{ROOT_PATH}/embeddings.h5', 'a')
+        self.cached_embeddings = h5py.File(f'{ROOT_PATH}/embeddings.h5', 'r')
 
     def _get_from_cache(self, id):
         return self.cached_embeddings[id]
@@ -78,8 +83,24 @@ class Embedding:
         }
 
     def embed_url_image(self, image_url, id=None):
-        image = ImageReader.read_from_url(image_url)
-        return self.embed_pil_image(image, id)
+        try:
+            image = ImageReader.read_from_url(image_url)
+            return self.embed_pil_image(image, id)
+        except Exception as e:
+            print(f'Failed to create embeddings for id {id}')
+            return None
+
+    def get_cached_embeddings(self, id):
+        if f'{id}_all' in self.cached_embeddings:
+            return {
+                'object': self._get_from_cache(f'{id}_object'),
+                'location': self._get_from_cache(f'{id}_location'),
+                'scene': self._get_from_cache(f'{id}_scene'),
+                'all': self._get_from_cache(f'{id}_all'),
+            }
+        else:
+            return None
+
 
 class AllEmbedding():
     def embed(self, embeddings):
@@ -87,7 +108,7 @@ class AllEmbedding():
 
 class ObjectEmbedding:
     def __init__(self):
-        self.DEVICE = torch.device('cpu')
+        self.DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         resnet152 = models.resnet152(pretrained=True)
         modules = list(resnet152.children())[:-1]
 
