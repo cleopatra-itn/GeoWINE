@@ -40,7 +40,7 @@ class ResultsTab extends React.Component {
                         data={this.state.entity}
                     />
                 </Tab>
-                {JSON.stringify(this.state.entity) === '{}' ?
+                {JSON.stringify(this.state.news) === '[]' ?
                     <Tab eventKey='disabled' title="News Articles" disabled>
                     </Tab> :
                     <Tab eventKey='newsArticlesTab' title="News Articles">
@@ -49,7 +49,7 @@ class ResultsTab extends React.Component {
                         />
                     </Tab>
                 }
-                {JSON.stringify(this.state.entity) === '{}' ?
+                {JSON.stringify(this.state.events) === '[]' ?
                     <Tab eventKey='disabled' title="Events" disabled>
                     </Tab> :
                     <Tab eventKey="EventsTab" title="Events">
