@@ -37,15 +37,15 @@ class Entities extends React.Component {
                         </Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                        <ListGroupItem>Geolocation similarity: {this.state.data.similarity_geolocation}</ListGroupItem>
-                        <ListGroupItem>Scene similarity: {this.state.data.similarity_scene}</ListGroupItem>
-                        <ListGroupItem>Object similarity: {this.state.data.similarity_obj}</ListGroupItem>
-                        <ListGroupItem>Total similarity: {this.state.data.similarity_all}</ListGroupItem>
+                        <ListGroupItem>Geolocation similarity: {this.state.data.similarity.location.toFixed(4)}</ListGroupItem>
+                        <ListGroupItem>Scene similarity: {this.state.data.similarity.scene.toFixed(4)}</ListGroupItem>
+                        <ListGroupItem>Object similarity: {this.state.data.similarity.object.toFixed(4)}</ListGroupItem>
+                        <ListGroupItem>Total similarity: {this.state.data.similarity.all.toFixed(4)}</ListGroupItem>
                     </ListGroup>
                     <Card.Body>
                         <Card.Link href={this.state.data.entity_uri} target='_blank'>Wikidata</Card.Link>
                         <Card.Link href={this.state.data.wikipedia_page} target='_blank'>Wikipedia</Card.Link>
-                        <Card.Link href='https://commons.wikimedia.org/wiki/Main_Page' target='_blank'>Wikimedia Commons</Card.Link>
+                        <Card.Link href={this.state.data.wikimedia_commons} target='_blank'>Wikimedia Commons</Card.Link>
                     </Card.Body>
                 </div>
                 }
