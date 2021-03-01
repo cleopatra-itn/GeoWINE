@@ -1,6 +1,5 @@
 import io
 import torch
-import logging
 import requests
 import torchvision
 import numpy as np
@@ -65,7 +64,7 @@ class Partitioning:
             - latitude and longitude
         """
 
-        logging.info(f"Loading partitioning from file: {csv_file}")
+        print(f"Loading partitioning from file: {csv_file}")
         self._df = pd.read_csv(csv_file, index_col=index_col, skiprows=skiprows)
         self._df = self._df.sort_index()
 
@@ -142,7 +141,7 @@ class Hierarchy:
         cell_hierarchy = []
 
         finest_partitioning = self.partitionings[-1]
-        logging.info("Create hierarchy from partitionings...")
+        print("Create hierarchy from partitionings...")
         if len(self.partitionings) > 1:
             # loop through finest partitioning
             for c in range(len(finest_partitioning)):
@@ -165,12 +164,12 @@ class Hierarchy:
                         break
 
                 cell_hierarchy.append(parents[::-1])
-        logging.info("Finished.")
+        print("Finished.")
         M = np.array(cell_hierarchy, dtype=np.int32)
+
         assert max([len(p) for p in self.partitionings]) == M.shape[0]
         assert len(self.partitionings) == M.shape[1]
-        logging.debug(M)
-        logging.info(f"M={M.shape}")
+
         return M
 
 def build_base_model(arch: str):
@@ -206,6 +205,6 @@ def load_weights_if_available(model, classifier, weights_path):
         elif k.startswith("classifier"):
             state_dict_classifier[k.replace("classifier.", "")] = w
         else:
-            logging.warning(f"Unexpected prefix in state_dict: {k}")
+            print(f"Unexpected prefix in state_dict: {k}")
     model.load_state_dict(state_dict_features, strict=True)
     return model, classifier
