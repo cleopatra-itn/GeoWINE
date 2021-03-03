@@ -1,0 +1,18 @@
+{
+    "notreparis.jpg": {
+        "image": "sample_images/notreparis.jpg",
+        "true_coords": [48.852966, 2.349902]
+    },
+    "noterdam.jpeg": {
+        "image": "sample_images/noterdam.jpeg",
+        "true_coords": [48.852966, 2.349902]
+    },
+    "timessquare.jpeg": {
+        "image": "sample_images/timessquare.jpeg",
+        "true_coords": [40.758896, -73.985130]
+    },
+    "vatican.jpeg": {
+        "image": "sample_images/vatican.jpeg",
+        "true_coords": [41.904755, 12.454628]
+    }
+}

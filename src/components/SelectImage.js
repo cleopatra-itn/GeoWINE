@@ -9,9 +9,24 @@ import "react-image-gallery/styles/css/image-gallery.css";
 
 const IMAGES = [
     {
-      original: require('images/resized/Q2981.jpg').default,
-      thumbnail: require('images/thumbnail/Q2981.jpg').default,
-      id: 'notreparis.jpg' // 'Q2981'
+      original: require('images/resized/notreparis.jpg').default,
+      thumbnail: require('images/resized/notreparis.jpg').default,
+      id: 'notreparis.jpg'
+    },
+    {
+        original: require('images/resized/noterdam.jpeg').default,
+        thumbnail: require('images/resized/noterdam.jpeg').default,
+        id: 'noterdam.jpeg'
+    },
+    {
+        original: require('images/resized/timessquare.jpeg').default,
+        thumbnail: require('images/resized/timessquare.jpeg').default,
+        id: 'timessquare.jpeg'
+    },
+    {
+        original: require('images/resized/vatican.jpeg').default,
+        thumbnail: require('images/resized/vatican.jpeg').default,
+        id: 'vatican.jpeg'
     }
 ];
 
