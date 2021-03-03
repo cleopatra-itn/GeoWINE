@@ -73,6 +73,23 @@
   transform: translateX(-50%);
 }
 
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  height: 233px;
+}
+
+.image-gallery-slide .image-gallery-image {
+  max-width: 312px;
+  object-fit: contain;
+}
+
+.image-gallery-thumbnail .image-gallery-thumbnail-image {
+  vertical-align: middle;
+  width: auto !important;
+  max-width: 75px;
+  max-height: 60px;
+  line-height: 0;
+}
+
 #overlay{
 	position: fixed;
     top: 0;
