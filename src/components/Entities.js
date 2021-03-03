@@ -27,7 +27,7 @@ class Entities extends React.Component {
                     </Card.Body> :
                 <div>
                     <div className={'wrapper'}>
-                        <Card.Img variant="top" src={this.state.data.image_url} />
+                        <Card.Img variant="top" src={this.state.data.image_url + '?' + new Date().getTime()} />
                     </div>
                     <Card.Body>
                         <Card.Title>{this.state.data.label}</Card.Title>

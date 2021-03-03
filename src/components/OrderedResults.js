@@ -32,7 +32,7 @@ class OrderedResults extends React.Component {
                             {this.state.entities.sort((a, b) => (a.similarity.all > b.similarity.all) ? -1 : 1).map((entity, i) => (
                                 <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
                                     <div className={'wrapper'}>
-                                        <Card.Img variant="top" src={entity.image_url} />
+                                        <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
                                     </div>
                                     <Card.Body>
                                         <Card.Text>
@@ -60,7 +60,7 @@ class OrderedResults extends React.Component {
                                 {this.state.entities.sort((a, b) => (a.similarity.location > b.similarity.location) ? -1 : 1).map((entity, i) => (
                                     <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
                                         <div className={'wrapper'}>
-                                            <Card.Img variant="top" src={entity.image_url} />
+                                            <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
                                         </div>
                                         <Card.Body>
                                             <Card.Text>
@@ -89,7 +89,7 @@ class OrderedResults extends React.Component {
                                 {this.state.entities.sort((a, b) => (a.similarity.scene > b.similarity.scene) ? -1 : 1).map((entity, i) => (
                                     <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
                                         <div className={'wrapper'}>
-                                            <Card.Img variant="top" src={entity.image_url} />
+                                            <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
                                         </div>
                                         <Card.Body>
                                             <Card.Text>
@@ -118,7 +118,7 @@ class OrderedResults extends React.Component {
                                 {this.state.entities.sort((a, b) => (a.similarity.object > b.similarity.object) ? -1 : 1).map((entity, i) => (
                                     <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
                                         <div className={'wrapper'}>
-                                            <Card.Img variant="top" src={entity.image_url} />
+                                            <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
                                         </div>
                                         <Card.Body>
                                             <Card.Text>
