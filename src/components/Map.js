@@ -5,14 +5,12 @@ import L from 'leaflet';
 import axios from 'axios';
 import $ from 'jquery';
 import 'leaflet/dist/leaflet.css';
-import iconEntity from 'images/leaflet/marker-entity.png';
-import iconModel from 'images/leaflet/marker-model.png';
 import iconGold from 'images/leaflet/marker-gold.png';
-// import iconShadow from 'images/leaflet/marker-shadow.png';
+import iconModel from 'images/leaflet/marker-model.png';
+import iconEntity from 'images/leaflet/marker-entity.png';
 
 const EntityIcon = L.icon({
     iconUrl: iconEntity,
-    // shadowUrl: iconShadow,
     iconSize: [40, 40],
     iconAnchor: [20, 45],
     popupAnchor: [0, -45]
@@ -20,7 +18,6 @@ const EntityIcon = L.icon({
 
 const ModelIcon = L.icon({
     iconUrl: iconModel,
-    // shadowUrl: iconShadow,
     iconSize: [40, 40],
     iconAnchor: [20, 45],
     popupAnchor: [0, -45]
@@ -28,25 +25,16 @@ const ModelIcon = L.icon({
 
 const GoldIcon = L.icon({
     iconUrl: iconGold,
-    // shadowUrl: iconShadow,
     iconSize: [40, 40],
     iconAnchor: [20, 45],
     popupAnchor: [0, -45]
 });
 
-const limeOptions = { color: '#18BC9C', opacity: 0.2 }
+const limeOptions = { color: '#18BC9C', opacity: 0.5 }
 
-function ChangeView({center, zoom, radius}) {
+function ChangeView({center, radius}) {
     const map = useMap();
-    // const marker = L.marker(center)
-    // var latLngs = [ marker.getLatLng() ];
-    // const circle = L.circle(center, radius);
     map.fitBounds(L.latLng(center).toBounds(radius));
-    // const marker = L.marker(center)
-    // var latLngs = [ marker.getLatLng() ];
-    // var markerBounds = L.latLngBounds(latLngs);
-    // map.fitBounds(markerBounds);
-    // map.setView(center, zoom);
     return null;
 }
 
@@ -61,7 +49,8 @@ class Map extends React.Component {
             zoom: 3,
             fixView: true,
             radius: 3500000,
-            errorMessage: ''
+            errorMessage: '',
+            showPrediction: false
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -75,7 +64,8 @@ class Map extends React.Component {
                 modelCenter: nextProps.data.pred_coords,
                 trueCenter: nextProps.data.true_coords,
                 fixView: nextProps.fixMapView,
-                radius: nextProps.data.query.radius * 1000
+                radius: nextProps.data.query.radius * 1000,
+                showPrediction: JSON.stringify(nextProps.data) === '{}' ? false : true
             }
         );
     }
@@ -88,7 +78,6 @@ class Map extends React.Component {
         $("#overlay").fadeIn(300);
         axios.post('/api/select_image_news_events', data)
             .then(response => {
-                console.log(response.data)
                 $("#overlay").fadeOut(300);
                 this.props.appCallback(response.data);
 			})
@@ -104,7 +93,7 @@ class Map extends React.Component {
             <>
                 <Card className="border-light mb-3">
                     <MapContainer scrollWheelZoom={true} style={{height: "500px", width: "100%"}}>
-                        {this.state.fixView ? <ChangeView center={this.state.modelCenter} zoom={this.state.zoom} radius={this.state.radius} /> : <></>}
+                        {this.state.fixView ? <ChangeView center={this.state.modelCenter} radius={this.state.radius} /> : <></>}
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -120,8 +109,8 @@ class Map extends React.Component {
                                 </Popup>
                             </Marker>
                         ))}
-                        {this.state.entities.length > 0 ? <Circle center={this.state.modelCenter} pathOptions={limeOptions} radius={this.state.radius} /> : <></>}
-                        {this.state.entities.length > 0 ?
+                        {this.state.showPrediction ? <Circle center={this.state.modelCenter} pathOptions={limeOptions} radius={this.state.radius} /> : <></>}
+                        {this.state.showPrediction ?
                             <Marker
                                 position={this.state.modelCenter}
                                 icon={ModelIcon}>
@@ -129,7 +118,7 @@ class Map extends React.Component {
                                     Model prediction: {this.state.modelCenter.lat}, {this.state.modelCenter.lng}
                                 </Popup>
                             </Marker> : <></>}
-                            {this.state.entities.length > 0 ?
+                            {this.state.showPrediction > 0 ?
                             <Marker
                                 position={this.state.trueCenter}
                                 icon={GoldIcon}>
