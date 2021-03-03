@@ -6,24 +6,23 @@ from flask import Flask, request
 
 ROOT_PATH = Path(os.path.dirname(__file__))
 
+SAMPLE_DATA = json.load(open(f'{ROOT_PATH}/sample_data.json'))
+
 geowine = GeoWINE()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
-SAMPLE_IMAGES = {
-    'notreparis.jpg': {
-        'image': f'{ROOT_PATH}/sample_images/notreparis.jpg',
-        'true_coords': [48.852966, 2.349902]
-    }
-}
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/api/select_image_entities', methods=['POST'])
 def selected_image_entities():
     data = request.get_json()
 
     id = data['id']
-    img_path = SAMPLE_IMAGES[id]['image']
-    true_coords = SAMPLE_IMAGES[id]['true_coords']
+    img_path = f'{ROOT_PATH}/{SAMPLE_DATA[id]["image"]}'
+    true_coords = SAMPLE_DATA[id]['true_coords']
 
     radius = data['radius']
     entity_type = data['type']
@@ -33,8 +32,6 @@ def selected_image_entities():
 @app.route('/api/select_image_news_events', methods=['POST'])
 def selected_image_news_events():
     data = request.get_json()
-    # id = data['id']
-    # label = data['label']
     return {
         'id': data['id'],
         **geowine.retrieve_news_events(data)
