@@ -1,8 +1,8 @@
-from news import NewsArticlesApi
-from utils import ImageCropper, Cosine, ImageReader
-from geolocation import GeolocationEstimator
-from entity_retriever import EntityRetriever
 from events import OekgEventsApi
+from news import NewsArticlesApi
+from entity_retriever import EntityRetriever
+from geolocation import GeolocationEstimator
+from utils import ImageCropper, Cosine, ImageReader
 
 import warnings
 with warnings.catch_warnings():
@@ -79,12 +79,16 @@ class GeoWINE():
 
             retrieved_entities.append(entity)
 
+        print(f'Creating embeddings done.')
+
         true_coord_dict = {}
         if true_coords is not None:
             true_coord_dict['true_coords'] = {
                 'lat': true_coords[0],
                 'lng': true_coords[1]
             }
+
+        print(f'Finished! Retrived {len(retrieved_entities)} entities.')
 
         return {
             **{
@@ -117,12 +121,3 @@ class GeoWINE():
             'news': self._get_news(entity['label']),
             'events': self._get_events((entity['id']))
         }
-
-# path_input_image = f"/data/s6enkacu/Projects/geolocation-demo/api/sample_images/notreparis.jpg"
-
-# geo_wine = GeoWINE()
-# ent_res = geo_wine.retrieve_entities_with_image_path(path_input_image, radius=1, true_coords=[48.852737, 2.350699])
-
-# ent_res2 = geo_wine.retrieve_entities_with_image_path(path_input_image, radius=1, true_coords=[48.852737, 2.350699])
-
-# news_events_res = geo_wine.retrieve_news_events(ent_res['retrieved_entities'][0])
