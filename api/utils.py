@@ -18,7 +18,7 @@ class ImageReader:
 
     @staticmethod
     def read_from_url(image_url):
-        response = requests.get(image_url)
+        response = requests.get(image_url, stream=True)
         image_bytes = io.BytesIO(response.content)
 
         return ImageReader.read(image_bytes)
