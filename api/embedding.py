@@ -88,6 +88,7 @@ class Embedding:
             return self.embed_pil_image(image, id)
         except Exception as e:
             print(f'Failed to create embeddings for id {id}')
+            print(e)
             return None
 
     def get_cached_embeddings(self, id):
