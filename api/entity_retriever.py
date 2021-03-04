@@ -71,16 +71,13 @@ class EntityRetriever:
         return self.sparql.query().convert()
 
     def _run_geospatial_wikidata_query(self, coords, radius, entity_type):
-        print(' '.join([f'wd:{ent_typ["value"]}' for ent_typ in entity_type]))
         query = BASE_QUERY.replace('TYPES', ' '.join([f'wd:{ent_typ["value"]}' for ent_typ in entity_type]))\
                         .replace('LNG', str(coords['lng']))\
                         .replace('LAT', str(coords['lat']))\
                         .replace('RADIUS', str(radius))
-        print(query)
 
         try:
             results = self._get_query_results(query)
-            print(results['results']['bindings'])
             return results['results']['bindings']
         except Exception as e:
             print(e)
