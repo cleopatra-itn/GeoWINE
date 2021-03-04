@@ -34,6 +34,7 @@ const limeOptions = { color: '#18BC9C', opacity: 0.5 }
 
 function ChangeView({center, radius}) {
     const map = useMap();
+    map.closePopup();
     map.fitBounds(L.latLng(center).toBounds(radius));
     return null;
 }
