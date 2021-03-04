@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import ImageGallery from 'react-image-gallery';
 import axios from 'axios';
 import $ from 'jquery';
@@ -52,6 +52,18 @@ const optionsRadius = [
     { value: '750', label: 'Country Level (750KM)' }
 ];
 
+const ValueContainer = ({ children, getValue, ...props }) => {
+    var length = getValue().length;
+
+    return (
+      <components.ValueContainer {...props}>
+        {!props.selectProps.menuIsOpen &&
+          `${length} selected`}
+        {React.cloneElement(children[1])}
+      </components.ValueContainer>
+    );
+  };
+
 class SelectImage extends React.Component {
     constructor(props) {
         super(props);
@@ -64,7 +76,7 @@ class SelectImage extends React.Component {
             useBrowserFullscreen: false,
 			activeIndex: 0,
 			errorMessage: '',
-            selectedTypeOption: { value: 'Q570116', label: 'Tourist Attraction' },
+            selectedTypeOption: [optionsTypes[0]],
             selectedRadiusOption: { value: '25', label: 'City Level (25KM)' }
         };
 
@@ -74,25 +86,31 @@ class SelectImage extends React.Component {
       }
 
     handleClick () {
-        // POST data and get results
-        console.log('Sending')
-        var data = {
-            id: IMAGES[this.state.activeIndex]['id'],
-            type: this.state.selectedTypeOption.value,
-            radius: this.state.selectedRadiusOption.value,
-        };
-        $("#overlay").fadeIn(300);
-        axios.post('/api/select_image_entities', data) // submit to api and get results
-            .then(response => {
-                console.log(response.data);
-                $("#overlay").fadeOut(300);
-                this.props.inputImageCallback(response.data); // pass response data to parent
-			})
-            .catch(error => {
-            	this.setState({ errorMessage: error.message });
-                $("#overlay").fadeOut(300);
-            	console.error('There was an error while requesting results for the selected image!', error);
-            });
+        if (this.state.selectedTypeOption.length > 0) {
+            // POST data and get results
+            console.log('Sending')
+            console.log(this.state.selectedTypeOption)
+
+            var data = {
+                id: IMAGES[this.state.activeIndex]['id'],
+                type: this.state.selectedTypeOption,
+                radius: this.state.selectedRadiusOption.value,
+            };
+            $("#overlay").fadeIn(300);
+            axios.post('/api/select_image_entities', data) // submit to api and get results
+                .then(response => {
+                    console.log(response.data);
+                    $("#overlay").fadeOut(300);
+                    this.props.inputImageCallback(response.data); // pass response data to parent
+                })
+                .catch(error => {
+                    this.setState({ errorMessage: error.message });
+                    $("#overlay").fadeOut(300);
+                    console.error('There was an error while requesting results for the selected image!', error);
+                });
+        } else {
+            alert('You need to select at least one type.');
+        }
     }
 
     handleTypeChange (selectedTypeOption) {
@@ -106,7 +124,7 @@ class SelectImage extends React.Component {
     render () {
         return (
             <>
-                <Card className={'border-light mb-3'} style={{height: '510px'}}>
+                <Card className={'border-light mb-3'} style={{height: '510px', zIndex: '1000'}}>
                     <Card.Body style={{padding: '0.5rem'}}>
                     <ImageGallery
                         items={this.state.items}
@@ -129,6 +147,13 @@ class SelectImage extends React.Component {
                                 value={this.state.selectedTypeOption}
                                 onChange={this.handleTypeChange}
                                 options={optionsTypes}
+                                isMulti
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                name="colors"
+                                components={{ ValueContainer }}
+                                hideSelectedOptions={false}
+                                closeMenuOnSelect={false}
                             />
                         </Col>
                     </Row>
