@@ -4,8 +4,10 @@ import { Row, Col } from 'react-bootstrap';
 import Select, { components } from 'react-select';
 import ImageGallery from 'react-image-gallery';
 import axios from 'axios';
+import RangeSlider from 'react-bootstrap-range-slider';
 import $ from 'jquery';
 import "react-image-gallery/styles/css/image-gallery.css";
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 const IMAGES = [
     {
@@ -45,13 +47,6 @@ const optionsTypes = [
     { value: 'Q41176', label: 'Building' } //
 ];
 
-const optionsRadius = [
-    { value: '1', label: 'Street Level (1KM)' },
-    { value: '25', label: 'City Level (25KM)' },
-    { value: '200', label: 'Region Level (200KM)' },
-    { value: '750', label: 'Country Level (750KM)' }
-];
-
 const ValueContainer = ({ children, getValue, ...props }) => {
     var length = getValue().length;
 
@@ -77,29 +72,24 @@ class SelectImage extends React.Component {
 			activeIndex: 0,
 			errorMessage: '',
             selectedTypeOption: [optionsTypes[0]],
-            selectedRadiusOption: { value: '25', label: 'City Level (25KM)' }
+            selectedRadiusOption: 10
         };
 
         this.handleClick = this.handleClick.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
-        this.handleRadiusChange = this.handleRadiusChange.bind(this);
       }
 
     handleClick () {
         if (this.state.selectedTypeOption.length > 0) {
             // POST data and get results
-            console.log('Sending')
-            console.log(this.state.selectedTypeOption)
-
             var data = {
                 id: IMAGES[this.state.activeIndex]['id'],
                 type: this.state.selectedTypeOption,
-                radius: this.state.selectedRadiusOption.value,
+                radius: this.state.selectedRadiusOption,
             };
             $("#overlay").fadeIn(300);
             axios.post('/api/select_image_entities', data) // submit to api and get results
                 .then(response => {
-                    console.log(response.data);
                     $("#overlay").fadeOut(300);
                     this.props.inputImageCallback(response.data); // pass response data to parent
                 })
@@ -115,10 +105,6 @@ class SelectImage extends React.Component {
 
     handleTypeChange (selectedTypeOption) {
         this.setState({ selectedTypeOption });
-    };
-
-    handleRadiusChange (selectedRadiusOption) {
-        this.setState({ selectedRadiusOption });
     };
 
     render () {
@@ -137,12 +123,12 @@ class SelectImage extends React.Component {
                     />
 
 
-                    <Row style={{marginTop: '1rem'}}>
+                    <Row style={{marginTop: '0.5rem'}}>
                         <Col xs={3}>
                             <label>Type:</label>
                         </Col>
 
-                        <Col xs={9}>
+                        <Col xs={9} style={{zIndex: '1000'}}>
                             <Select
                                 value={this.state.selectedTypeOption}
                                 onChange={this.handleTypeChange}
@@ -154,20 +140,25 @@ class SelectImage extends React.Component {
                                 components={{ ValueContainer }}
                                 hideSelectedOptions={false}
                                 closeMenuOnSelect={false}
+                                isClearable={false}
                             />
                         </Col>
                     </Row>
 
-                    <Row style={{marginTop: '0.5rem'}}>
+                    <Row style={{marginTop: '1.8rem'}}>
                         <Col xs={3}>
                             <label>Radius:</label>
                         </Col>
 
-                        <Col xs={9}>
-                            <Select
+                        <Col xs={9} style={{zIndex: '100'}}>
+                            <RangeSlider
                                 value={this.state.selectedRadiusOption}
-                                onChange={this.handleRadiusChange}
-                                options={optionsRadius}
+                                onChange={changeEvent => this.setState({ selectedRadiusOption: changeEvent.target.value })}
+                                min='1'
+                                max='25'
+                                tooltipPlacement='top'
+                                tooltip='on'
+                                className="custom-range"
                             />
                         </Col>
                     </Row>
