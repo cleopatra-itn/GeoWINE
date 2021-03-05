@@ -58,7 +58,7 @@ class EntityRetriever:
         self.user_agent = 'Myy User Agent 1.0'
         self.sparql = SPARQLWrapper(self.wikidata_endpoint, agent=self.user_agent)
         self.wikipedia = wikipediaapi.Wikipedia('en')
-        self.cached_entities = {ent['id']: ent for ent in json.load(open(f'{ROOT_PATH}/entities_cached.json'))}
+        self.cached_entities = {ent['id']: ent for ent in json.load(open(f'{ROOT_PATH}/cached_entities.json'))}
 
     def retrieve(self, coords, radius, entity_type):
         geo_query_res = self._run_geospatial_wikidata_query(coords, radius, entity_type)
@@ -71,7 +71,7 @@ class EntityRetriever:
         return self.sparql.query().convert()
 
     def _run_geospatial_wikidata_query(self, coords, radius, entity_type):
-        query = BASE_QUERY.replace('TYPES', ' '.join([f'wd:{ent_typ["value"]}' for ent_typ in entity_type]))\
+        query = BASE_QUERY.replace('TYPES', ' '.join([f'wd:{ent_typ}' for ent_typ in entity_type]))\
                         .replace('LNG', str(coords['lng']))\
                         .replace('LAT', str(coords['lat']))\
                         .replace('RADIUS', str(radius))

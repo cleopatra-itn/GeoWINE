@@ -1,0 +1,61 @@
+{
+    "church": {
+        "Q16970": "Church Building",
+        "Q44613": "Monastery",
+        "Q317557": "Parish Church",
+        "Q2977": "Cathedral",
+        "Q108325": "Chapel",
+        "Q1088552": "Catholic Church Building",
+        "Q56242215": "Catholic Cathedral",
+        "Q2031836": "Eastern Orthodox Church",
+        "Q34627": "Synagogue",
+        "Q5393308": "Buddhist Temple",
+        "Q845945": "Shinto Shrine",
+        "Q32815": "Mosque"
+    },
+    "skyscraper": {
+        "Q11303": "Skyscraper"
+    },
+    "tower": {
+        "Q12518": "Tower"
+    },
+    "tourist attraction": {
+        "Q570116": "Tourist Attraction"
+    },
+    "building": {
+        "Q41176": "Building",
+        "Q1497375": "Architectural Ensemble",
+        "Q811979": "Architectural Structure"
+    },
+    "monument": {
+        "Q4989906": "Monument",
+        "Q5003624": "Memorial",
+        "Q575759": "War memorial",
+        "Q162875": "Mausoleum"
+    },
+    "historic": {
+        "Q1081138": "Historic site",
+        "Q839954": "Archaeological Site",
+        "Q17715832": "Castle Ruin"
+    },
+    "bridge": {
+        "Q12280": "Bridge"
+    },
+    "museum": {
+        "Q33506": "Museum",
+        "Q207694": "Art Museum",
+        "Q17431399": "National Museum",
+        "Q2772772": "Military Museum"
+    },
+    "square": {
+        "Q174782": "Square"
+    },
+    "castle": {
+        "Q23413": "Castle",
+        "Q751876": "Chateau",
+        "Q16560": "Palace"
+    },
+    "waterfall": {
+        "Q34038": "Waterfall"
+    }
+}
