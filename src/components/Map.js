@@ -4,10 +4,13 @@ import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-le
 import L from 'leaflet';
 import axios from 'axios';
 import $ from 'jquery';
-import 'leaflet/dist/leaflet.css';
+
+// images
 import iconGold from 'images/leaflet/marker-gold.png';
 import iconModel from 'images/leaflet/marker-model.png';
 import iconEntity from 'images/leaflet/marker-entity.png';
+import iconGoldCCW from 'images/leaflet/marker-gold-ccw25.png';
+import iconModelCW from 'images/leaflet/marker-model-cw25.png';
 
 const EntityIcon = L.icon({
     iconUrl: iconEntity,
@@ -16,18 +19,18 @@ const EntityIcon = L.icon({
     popupAnchor: [0, -45]
 });
 
-const ModelIcon = L.icon({
-    iconUrl: iconModel,
-    iconSize: [40, 40],
-    iconAnchor: [20, 45],
-    popupAnchor: [0, -45]
+const ModelIconCW = L.icon({
+    iconUrl: iconModelCW,
+    iconSize: [55, 55],
+    iconAnchor: [17, 50],
+    popupAnchor: [13, -42]
 });
 
-const GoldIcon = L.icon({
-    iconUrl: iconGold,
-    iconSize: [40, 40],
-    iconAnchor: [20, 45],
-    popupAnchor: [0, -45]
+const GoldIconCCW = L.icon({
+    iconUrl: iconGoldCCW,
+    iconSize: [55, 55],
+    iconAnchor: [35, 50],
+    popupAnchor: [-10, -42]
 });
 
 const limeOptions = { color: '#18BC9C', opacity: 0.5 }
@@ -114,7 +117,9 @@ class Map extends React.Component {
                         {this.state.showPrediction ?
                             <Marker
                                 position={this.state.modelCenter}
-                                icon={ModelIcon}>
+                                icon={ModelIconCW}
+                                zIndexOffset={1000}
+                                rotationAngle={45}>
                                 <Popup>
                                     Model prediction: {this.state.modelCenter.lat}, {this.state.modelCenter.lng}
                                 </Popup>
@@ -122,7 +127,8 @@ class Map extends React.Component {
                             {this.state.showPrediction > 0 ?
                             <Marker
                                 position={this.state.trueCenter}
-                                icon={GoldIcon}>
+                                icon={GoldIconCCW}
+                                zIndexOffset={1000}>
                                 <Popup>
                                     Ground truth: {this.state.trueCenter.lat}, {this.state.trueCenter.lng}
                                 </Popup>
