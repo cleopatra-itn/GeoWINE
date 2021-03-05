@@ -1,6 +1,6 @@
 {
-  "short_name": "Geolocation Demo",
-  "name": "Create Geolocation based retrival demo",
+  "short_name": "GeoWINE",
+  "name": "GeoWINE: Geolocation based Wiki-Image-News-Events Retrieval",
   "icons": [
     {
       "src": "favicon.ico",
