@@ -31,12 +31,14 @@ data
 models
 *.h5
 entities_cached.json
+cached_entities.json
 entities.json
+api/images/*
+api/entities/*
+api/embeddings/*
+api/temp/*
 
 notes
-src/images/original
-src/images/old_thumbnail
-src/images/old_resized
 
 # EventRegistry API Key
 ER_API_KEY
