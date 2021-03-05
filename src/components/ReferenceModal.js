@@ -9,7 +9,7 @@ function ReferenceModal() {
 
     return (
       <>
-        <Nav.Link href="#" onClick={handleShow}>Reference</Nav.Link>
+        <Nav.Link style={{display: 'inline', padding: '0.5rem'}} href="#" onClick={handleShow}>Reference</Nav.Link>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Reference</Modal.Title>

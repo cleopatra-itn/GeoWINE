@@ -1,13 +1,11 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Header from 'components/Header';
 import Footer from 'components/Footer';
 import InputImageTab from 'components/InputImageTab';
 import Map from 'components/Map';
 import ResultsTab from 'components/ResultsTab';
 import OrderedResults from  'components/OrderedResults';
 import LoaderOverlay from  'components/LoaderOverlay';
-import 'App.css';
 
 class App extends React.Component {
 
@@ -56,9 +54,7 @@ class App extends React.Component {
     render () {
         return (
         <>
-            <Header />
-
-            <Container fluid>
+            <Container fluid style={{marginTop: '20px'}}>
                 <Row>
                     <Col sm={3}>
                         <InputImageTab

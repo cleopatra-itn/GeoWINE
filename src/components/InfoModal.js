@@ -9,7 +9,7 @@ function InfoModal() {
 
     return (
       <>
-        <Nav.Link href="#" onClick={handleShow}>Info</Nav.Link>
+        <Nav.Link style={{display: 'inline', padding: '0.5rem'}} href="#" onClick={handleShow}>Info</Nav.Link>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Info</Modal.Title>
