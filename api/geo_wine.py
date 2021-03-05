@@ -108,11 +108,11 @@ class GeoWINE():
     def _get_events(self, id):
         return self.events_api.retrieve(id)
 
-    def retrieve_entities_with_image_url(self, url, radius=25, entity_type='Q33506', true_coords=None):
+    def retrieve_entities_with_image_url(self, url, radius=25, entity_type=['Q33506'], true_coords=None):
         image = self._read_image_from_url(url)
         return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords)
 
-    def retrieve_entities_with_image_path(self, path, radius=25, entity_type='Q33506', true_coords=None):
+    def retrieve_entities_with_image_path(self, path, radius=25, entity_type=['Q33506'], true_coords=None):
         image = self._read_image_from_path(path)
         return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords)
 

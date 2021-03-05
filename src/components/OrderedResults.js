@@ -6,7 +6,7 @@ class OrderedResults extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: 'orderedResultsTab',
+            key: 'orderedGeolocationTab',
             entities: this.props.dataFromApp
         };
     }
@@ -26,10 +26,11 @@ class OrderedResults extends React.Component {
                 activeKey={this.state.key}
                 onSelect={(k) => this.setState({ key: k })}
                 >
-                <Tab eventKey="orderedResultsTab" title="Ordered Results">
+
+                <Tab eventKey="orderedGeolocationTab" title="Similar geolocations/entities">
                     <Card className={'border-light mb-3'} style={{height: 'auto', overflowX: 'auto', whiteSpace: 'nowrap'}}>
                         <Card.Body>
-                            {this.state.entities.sort((a, b) => (a.similarity.all > b.similarity.all) ? -1 : 1).map((entity, i) => (
+                            {this.state.entities.sort((a, b) => (a.similarity.location > b.similarity.location) ? -1 : 1).map((entity, i) => (
                                 <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
                                     <div className={'wrapper'}>
                                         <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
@@ -40,9 +41,11 @@ class OrderedResults extends React.Component {
                                             <br />
                                             <small className='text-muted'>{entity.id}</small>
                                             <br />
+                                            <small className='text-muted'>{entity.type}</small>
+                                            <br />
                                             <small>Rank: {i+1}</small>
                                             <br />
-                                            <small>Total similarity: {entity.similarity.all.toFixed(4)}</small>
+                                            <small>Similarity: {entity.similarity.location.toFixed(4)}</small>
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -52,38 +55,9 @@ class OrderedResults extends React.Component {
                 </Tab>
 
                 {this.state.entities.length === 0 ?
-                    <Tab eventKey='disabled' title="Ordered By Geolocation" disabled>
+                    <Tab eventKey='disabled' title="Similar places" disabled>
                     </Tab> :
-                    <Tab eventKey="orderedGeolocationTab" title="Ordered By Geolocation">
-                        <Card className={'border-light mb-3'} style={{height: 'auto', overflowX: 'auto', whiteSpace: 'nowrap'}}>
-                            <Card.Body>
-                                {this.state.entities.sort((a, b) => (a.similarity.location > b.similarity.location) ? -1 : 1).map((entity, i) => (
-                                    <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
-                                        <div className={'wrapper'}>
-                                            <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
-                                        </div>
-                                        <Card.Body>
-                                            <Card.Text>
-                                                <small>{entity.label}</small>
-                                                <br />
-                                                <small className='text-muted'>{entity.id}</small>
-                                                <br />
-                                                <small>Rank: {i+1}</small>
-                                                <br />
-                                                <small>Geolocation similarity: {entity.similarity.location.toFixed(4)}</small>
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                ))}
-                            </Card.Body>
-                        </Card>
-                    </Tab>
-                }
-
-                {this.state.entities.length === 0 ?
-                    <Tab eventKey='disabled' title="Ordered By Scene" disabled>
-                    </Tab> :
-                    <Tab eventKey="orderedSceneTab" title="Ordered By Scene">
+                    <Tab eventKey="orderedSceneTab" title="Similar places">
                         <Card className={'border-light mb-3'} style={{height: 'auto', overflowX: 'auto', whiteSpace: 'nowrap'}}>
                             <Card.Body>
                                 {this.state.entities.sort((a, b) => (a.similarity.scene > b.similarity.scene) ? -1 : 1).map((entity, i) => (
@@ -97,9 +71,11 @@ class OrderedResults extends React.Component {
                                                 <br />
                                                 <small className='text-muted'>{entity.id}</small>
                                                 <br />
+                                                <small className='text-muted'>{entity.type}</small>
+                                                <br />
                                                 <small>Rank: {i+1}</small>
                                                 <br />
-                                                <small>Scene similarity: {entity.similarity.scene.toFixed(4)}</small>
+                                                <small>Similarity: {entity.similarity.scene.toFixed(4)}</small>
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -110,9 +86,9 @@ class OrderedResults extends React.Component {
                 }
 
                 {this.state.entities.length === 0 ?
-                    <Tab eventKey='disabled' title="Ordered By Object" disabled>
+                    <Tab eventKey='disabled' title="Overall similarity by ImageNet embeddings" disabled>
                     </Tab> :
-                    <Tab eventKey="orderedObjectTab" title="Ordered By Object">
+                    <Tab eventKey="orderedObjectTab" title="Overall similarity by ImageNet embeddings">
                         <Card className={'border-light mb-3'} style={{height: 'auto', overflowX: 'auto', whiteSpace: 'nowrap'}}>
                             <Card.Body>
                                 {this.state.entities.sort((a, b) => (a.similarity.object > b.similarity.object) ? -1 : 1).map((entity, i) => (
@@ -126,9 +102,40 @@ class OrderedResults extends React.Component {
                                                 <br />
                                                 <small className='text-muted'>{entity.id}</small>
                                                 <br />
+                                                <small className='text-muted'>{entity.type}</small>
+                                                <br />
                                                 <small>Rank: {i+1}</small>
-                                                {/* <br /> */}
-                                                {/* <small>Object similarity: {entity.similarity.object}</small> */}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                ))}
+                            </Card.Body>
+                        </Card>
+                    </Tab>
+                }
+
+                {this.state.entities.length === 0 ?
+                    <Tab eventKey='disabled' title="Combined search" disabled>
+                    </Tab> :
+                    <Tab eventKey="orderedResultsTab" title="Combined search">
+                        <Card className={'border-light mb-3'} style={{height: 'auto', overflowX: 'auto', whiteSpace: 'nowrap'}}>
+                            <Card.Body>
+                                {this.state.entities.sort((a, b) => (a.similarity.all > b.similarity.all) ? -1 : 1).map((entity, i) => (
+                                    <Card className={'border-light mb-3'} style={{width: '200px', display: 'inline-block', marginRight: '10px'}}>
+                                        <div className={'wrapper'}>
+                                            <Card.Img variant="top" src={entity.image_url + '?' + new Date().getTime()} />
+                                        </div>
+                                        <Card.Body>
+                                            <Card.Text>
+                                                <small>{entity.label}</small>
+                                                <br />
+                                                <small className='text-muted'>{entity.id}</small>
+                                                <br />
+                                                <small className='text-muted'>{entity.type}</small>
+                                                <br />
+                                                <small>Rank: {i+1}</small>
+                                                <br />
+                                                <small>Similarity: {entity.similarity.all.toFixed(4)}</small>
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

@@ -32,6 +32,7 @@ class Entities extends React.Component {
                     <Card.Body>
                         <Card.Title>{this.state.data.label}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">{this.state.data.id}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">{this.state.data.type} ({this.state.data.type_id})</Card.Subtitle>
                         <Card.Text className={'cut-text'}>
                             {this.state.data.en_description}
                         </Card.Text>
@@ -39,8 +40,8 @@ class Entities extends React.Component {
                     <ListGroup className="list-group-flush">
                         <ListGroupItem>Geolocation similarity: {this.state.data.similarity.location.toFixed(4)}</ListGroupItem>
                         <ListGroupItem>Scene similarity: {this.state.data.similarity.scene.toFixed(4)}</ListGroupItem>
-                        <ListGroupItem>Object similarity: {this.state.data.similarity.object.toFixed(4)}</ListGroupItem>
-                        <ListGroupItem>Total similarity: {this.state.data.similarity.all.toFixed(4)}</ListGroupItem>
+                        <ListGroupItem>ImageNet similarity: {this.state.data.similarity.object.toFixed(4)}</ListGroupItem>
+                        <ListGroupItem>Combined similarity: {this.state.data.similarity.all.toFixed(4)}</ListGroupItem>
                     </ListGroup>
                     <Card.Body>
                         <Card.Link href={this.state.data.entity_uri} target='_blank'>Wikidata</Card.Link>

@@ -6,45 +6,43 @@ import ImageGallery from 'react-image-gallery';
 import axios from 'axios';
 import RangeSlider from 'react-bootstrap-range-slider';
 import $ from 'jquery';
-import "react-image-gallery/styles/css/image-gallery.css";
-import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 const IMAGES = [
     {
-      original: require('images/resized/notreparis.jpg').default,
-      thumbnail: require('images/resized/notreparis.jpg').default,
+      original: require('images/input/notreparis.jpg').default,
+      thumbnail: require('images/input/notreparis.jpg').default,
       id: 'notreparis.jpg'
     },
     {
-        original: require('images/resized/noterdam.jpeg').default,
-        thumbnail: require('images/resized/noterdam.jpeg').default,
+        original: require('images/input/noterdam.jpeg').default,
+        thumbnail: require('images/input/noterdam.jpeg').default,
         id: 'noterdam.jpeg'
     },
     {
-        original: require('images/resized/timessquare.jpeg').default,
-        thumbnail: require('images/resized/timessquare.jpeg').default,
+        original: require('images/input/timessquare.jpeg').default,
+        thumbnail: require('images/input/timessquare.jpeg').default,
         id: 'timessquare.jpeg'
     },
     {
-        original: require('images/resized/vatican.jpeg').default,
-        thumbnail: require('images/resized/vatican.jpeg').default,
+        original: require('images/input/vatican.jpeg').default,
+        thumbnail: require('images/input/vatican.jpeg').default,
         id: 'vatican.jpeg'
     }
 ];
 
 const optionsTypes = [
-    { value: 'Q570116', label: 'Tourist Attraction' }, // 2870
-    { value: 'Q33506', label: 'Museum' }, // 40031
-    { value: 'Q839954', label: 'Archaeological Site' }, // 39211
-    { value: 'Q618123', label: 'Geographical Feature' }, // 6604
-    { value: 'Q2319498', label: 'Landmark' }, // 627
-    { value: 'Q43229', label: 'Organization' }, // 70283
-    { value: 'Q327333', label: 'Government Agency' }, // 12729
-    { value: 'Q1802963', label: 'Mansion' }, // 1323
-    { value: 'Q162875', label: 'Mausoleum' }, // 2061
-    { value: 'Q2221906', label: 'Geographic Location' }, // 8300
-    { value: 'Q2065736', label: 'Cultural Property' }, // 66003
-    { value: 'Q41176', label: 'Building' } //
+    { value: 'tourist attraction', label: 'Tourist Attraction' },
+    { value: 'church', label: 'Church' },
+    { value: 'skyscraper', label: 'Skyscraper' },
+    { value: 'tower', label: 'Tower' },
+    { value: 'building', label: 'Building' },
+    { value: 'monument', label: 'Monument' },
+    { value: 'historic', label: 'Historic' },
+    { value: 'bridge', label: 'Bridge' },
+    { value: 'museum', label: 'Museum' },
+    { value: 'square', label: 'Square' },
+    { value: 'castle', label: 'Castle' },
+    { value: 'waterfall', label: 'Waterfall' }
 ];
 
 const ValueContainer = ({ children, getValue, ...props }) => {
@@ -124,11 +122,11 @@ class SelectImage extends React.Component {
 
 
                     <Row style={{marginTop: '0.5rem'}}>
-                        <Col xs={3}>
-                            <label>Type:</label>
+                        <Col xs={5}>
+                            <label>Type of results:</label>
                         </Col>
 
-                        <Col xs={9} style={{zIndex: '1000'}}>
+                        <Col xs={7} style={{zIndex: '1000'}}>
                             <Select
                                 value={this.state.selectedTypeOption}
                                 onChange={this.handleTypeChange}
@@ -146,11 +144,11 @@ class SelectImage extends React.Component {
                     </Row>
 
                     <Row style={{marginTop: '1.8rem'}}>
-                        <Col xs={3}>
-                            <label>Radius:</label>
+                        <Col xs={5}>
+                            <label>Radius of results:</label>
                         </Col>
 
-                        <Col xs={9} style={{zIndex: '100'}}>
+                        <Col xs={7} style={{zIndex: '100'}}>
                             <RangeSlider
                                 value={this.state.selectedRadiusOption}
                                 onChange={changeEvent => this.setState({ selectedRadiusOption: changeEvent.target.value })}
@@ -164,7 +162,7 @@ class SelectImage extends React.Component {
                     </Row>
 
                     <Button onClick={this.handleClick} variant="primary" size="lg" block style={{marginTop: '1rem'}}>
-                        Guess Location &amp; Get Results
+                        Predict location &amp; Get Results
                     </Button>
                     </Card.Body>
                 </Card>

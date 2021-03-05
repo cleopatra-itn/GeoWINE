@@ -7,6 +7,7 @@ from flask import Flask, request
 ROOT_PATH = Path(os.path.dirname(__file__))
 
 SAMPLE_DATA = json.load(open(f'{ROOT_PATH}/sample_data.json'))
+ENTITY_TYPES = json.load(open(f'{ROOT_PATH}/entity_types.json'))
 
 geowine = GeoWINE()
 
@@ -25,9 +26,10 @@ def selected_image_entities():
     true_coords = SAMPLE_DATA[id]['true_coords']
 
     radius = data['radius']
-    entity_type = data['type']
+    entity_types = [ent_type['value'] for ent_type in data['type']]
+    entity_types = [typ for ent_type in entity_types for typ in list(ENTITY_TYPES[ent_type].keys())]
 
-    return geowine.retrieve_entities_with_image_path(path=img_path, radius=radius, entity_type=entity_type, true_coords=true_coords)
+    return geowine.retrieve_entities_with_image_path(path=img_path, radius=radius, entity_type=entity_types, true_coords=true_coords)
 
 @app.route('/api/select_image_news_events', methods=['POST'])
 def selected_image_news_events():
