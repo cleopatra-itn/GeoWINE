@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "bootswatch/dist/flatly/bootstrap.min.css";
-import 'index.css';
 import App from 'App';
 import reportWebVitals from 'reportWebVitals';
+
+// css files
+import "bootswatch/dist/flatly/bootstrap.min.css";
+import 'index.css';
+import 'App.css';
+import 'leaflet/dist/leaflet.css';
+import "react-image-gallery/styles/css/image-gallery.css";
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
