@@ -49,7 +49,7 @@ class GeoWINE():
     def _get_entities(self, coords, radius, entity_type):
         return self.entity_retriever.retrieve(coords, radius, entity_type)
 
-    def _retrieve_entities(self, image, radius, entity_type, true_coords=None):
+    def _retrieve_entities(self, image, radius, entity_type, true_coords, k):
         image_cropped = self._crop_image(image)
         print('Image cropped done!')
         pred_coords = self._predict_coordinates(image_cropped)
@@ -81,14 +81,15 @@ class GeoWINE():
 
         print(f'Creating embeddings done.')
 
-        true_coord_dict = {}
-        if true_coords is not None:
-            true_coord_dict['true_coords'] = {
+        if true_coords:
+            true_coords = {
                 'lat': true_coords[0],
                 'lng': true_coords[1]
             }
 
         print(f'Finished! Retrived {len(retrieved_entities)} entities.')
+        # sort by location similarity
+        retrieved_entities.sort(key=lambda x: x['similarity']['location'], reverse=True)
 
         return {
             **{
@@ -97,9 +98,11 @@ class GeoWINE():
                     'radius': radius,
                     'entity_type': entity_type
                     },
-                'retrieved_entities': retrieved_entities
+                'retrieved_entities': retrieved_entities[:k]
             },
-            **true_coord_dict
+            **{
+                'true_coords': true_coords
+            }
         }
 
     def _get_news(self, keyword):
@@ -108,13 +111,16 @@ class GeoWINE():
     def _get_events(self, id):
         return self.events_api.retrieve(id)
 
-    def retrieve_entities_with_image_url(self, url, radius=25, entity_type=['Q33506'], true_coords=None):
+    def retrieve_entities_with_image_url(self, url, radius=25, entity_type=['Q570116'], true_coords={}, k=50):
         image = self._read_image_from_url(url)
-        return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords)
+        return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords, k=k)
 
-    def retrieve_entities_with_image_path(self, path, radius=25, entity_type=['Q33506'], true_coords=None):
+    def retrieve_entities_with_image_path(self, path, radius=25, entity_type=['Q570116'], true_coords={}, k=50):
         image = self._read_image_from_path(path)
-        return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords)
+        return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords, k=k)
+
+    def retrieve_entities_with_pil_path(self, image, radius=25, entity_type=['Q570116'], true_coords={}, k=50):
+        return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords, k=k)
 
     def retrieve_news_events(self, entity):
         return {
