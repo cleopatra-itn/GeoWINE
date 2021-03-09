@@ -9,9 +9,16 @@ from PIL import Image
 import torch.nn as nn
 from pathlib import Path
 from scipy import spatial
+from resizeimage import resizeimage
 from collections import OrderedDict
 
 class ImageReader:
+    @staticmethod
+    def read_and_resize(image):
+        img = Image.open(image, 'r')
+        img = resizeimage.resize_contain(img, [256, 256])
+        return img.convert('RGB')
+
     @staticmethod
     def read(image):
         return Image.open(image).convert("RGB")
@@ -21,11 +28,11 @@ class ImageReader:
         response = requests.get(image_url, stream=True)
         image_bytes = io.BytesIO(response.content)
 
-        return ImageReader.read(image_bytes)
+        return ImageReader.read_and_resize(image_bytes)
 
     @staticmethod
     def read_from_path(image_path):
-        return ImageReader.read(image_path)
+        return ImageReader.read_and_resize(image_path)
 
 class ImageCropper:
     def __init__(self):
