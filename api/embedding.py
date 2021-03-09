@@ -36,7 +36,7 @@ class Embedding:
             'scene': SceneEmbedding(),
             'all': AllEmbedding()
         }
-        self.cached_embeddings = h5py.File(f'{ROOT_PATH}/embeddings.h5', 'r')
+        self.cached_embeddings = h5py.File(f'{ROOT_PATH}/cached_embeddings.h5', 'r')
 
     def _get_from_cache(self, id):
         return self.cached_embeddings[id]
