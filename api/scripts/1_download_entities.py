@@ -2,26 +2,48 @@ import os
 import sys
 import time
 import json
-import wikipediaapi
 from pathlib import Path
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 ROOT_PATH = Path(os.path.dirname(__file__))
 
-CLASSES = [
-    'Q570116',
-    'Q33506',
-    'Q839954',
-    'Q618123',
-    'Q2319498',
-    'Q43229',
-    'Q327333',
-    'Q1802963',
-    'Q162875',
-    'Q2221906',
-    'Q2065736',
-    'Q41176'
-]
+TYPES = {
+    "Q34038": "Waterfall",
+    "Q23413": "Castle",
+    "Q751876": "Chateau",
+    "Q16560": "Palace",
+    "Q174782": "Square",
+    "Q16970": "Church Building",
+    "Q44613": "Monastery",
+    "Q317557": "Parish Church",
+    "Q2977": "Cathedral",
+    "Q108325": "Chapel",
+    "Q1088552": "Catholic Church Building",
+    "Q56242215": "Catholic Cathedral",
+    "Q2031836": "Eastern Orthodox Church",
+    "Q34627": "Synagogue",
+    "Q5393308": "Buddhist Temple",
+    "Q845945": "Shinto Shrine",
+    "Q32815": "Mosque",
+    "Q11303": "Skyscraper",
+    "Q12518": "Tower",
+    "Q570116": "Tourist Attraction",
+    "Q41176": "Building",
+    "Q1497375": "Architectural Ensemble",
+    "Q811979": "Architectural Structure",
+    "Q4989906": "Monument",
+    "Q5003624": "Memorial",
+    "Q575759": "War Memorial",
+    "Q162875": "Mausoleum",
+    "Q1081138": "Historic site",
+    "Q839954": "Archaeological Site",
+    "Q17715832": "Castle Ruin",
+    "Q12280": "Bridge",
+    "Q33506": "Museum",
+    "Q207694": "Art Museum",
+    "Q17431399": "National Museum",
+    "Q2772772": "Military Museum"
+}
 
 QUERY_TEMPLATE = """
     SELECT DISTINCT ?item ?itemLabel ?image ?coords ?commons ?enwikipedia
@@ -51,19 +73,10 @@ def parse_wikidata_coords(coords):
 
     return [lat, lng]
 
-def get_wikipedia_summary(url):
-    wikipedia = wikipediaapi.Wikipedia('en')
-    id = url.rsplit('/', 1)[-1]
-    lang_page = wikipedia.page(id, unquote=True)
-    if lang_page.exists():
-        return lang_page.summary
-    else:
-        return ''
-
 entities = []
 seen_ids = set()
 start = time.perf_counter()
-for i, ent_class in enumerate(CLASSES):
+for i, ent_class in enumerate(list(TYPES.keys())):
     try:
         results = get_results(QUERY_TEMPLATE.replace('WDID', ent_class))
 
@@ -81,9 +94,10 @@ for i, ent_class in enumerate(CLASSES):
                 'entity_uri': result['item']['value'],
                 'coordinates': parse_wikidata_coords(result['coords']['value']),
                 'image_url': result['image']['value'],
-                # 'en_description': get_wikipedia_summary(result['enwikipedia']['value']),
                 'wikipedia_page': result['enwikipedia']['value'] if 'enwikipedia' in result else '', # 'https://en.wikipedia.org/wiki/Main_Page',
-                'wikimedia_commons': f"https://commons.wikimedia.org/wiki/Category:{result['commons']['value'].replace(' ', '_')}" if 'commons' in result else '' # 'https://commons.wikimedia.org/wiki/Main_Page'
+                'wikimedia_commons': f"https://commons.wikimedia.org/wiki/Category:{result['commons']['value'].replace(' ', '_')}" if 'commons' in result else '', # 'https://commons.wikimedia.org/wiki/Main_Page'
+                'type_id': ent_class,
+                'type': TYPES[ent_class],
             })
             seen_ids.add(id)
     except Exception as e:
@@ -91,11 +105,30 @@ for i, ent_class in enumerate(CLASSES):
         print(str(e))
         continue
     toc = time.perf_counter()
-    print(f'====> Finished id {ent_class} -- {((i+1)/len(CLASSES))*100:.2f}% -- {toc - start:0.2f}s')
+    print(f'====> Finished id {ent_class} -- {((i+1)/len(list(TYPES.keys())))*100:.2f}% -- {toc - start:0.2f}s')
 end = time.perf_counter()
 
-entites_path = ROOT_PATH / f'entities.json'
-with open(entites_path, 'w') as json_file:
+def chunk_list(seq, num=10):
+    avg = len(seq) / float(num)
+    out = []
+    last = 0.0
+
+    while last < len(seq):
+        out.append(seq[int(last):int(last + avg)])
+        last += avg
+
+    return out
+
+chunked_entities = chunk_list(entities)
+
+entites_path = ROOT_PATH / 'entities'
+
+for i, chunk_data in enumerate(chunked_entities):
+    chunk_path = f'{entites_path}/entities_{i+1}.json'
+    with open(chunk_path, 'w') as json_file:
+        json.dump(chunk_data, json_file, ensure_ascii=False, indent=4)
+
+with open(f'{ROOT_PATH}/cached_entities.json', 'w') as json_file:
     json.dump(entities, json_file, ensure_ascii=False, indent=4)
 
 print(f'------------------------------------------------------')
