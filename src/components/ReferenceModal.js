@@ -14,7 +14,7 @@ function ReferenceModal() {
           <Modal.Header closeButton>
             <Modal.Title>Reference</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Reference Text</Modal.Body>
+          <Modal.Body>Coming soon!</Modal.Body>
         </Modal>
       </>
     );

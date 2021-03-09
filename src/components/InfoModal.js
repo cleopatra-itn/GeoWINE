@@ -14,7 +14,7 @@ function InfoModal() {
           <Modal.Header closeButton>
             <Modal.Title>Info</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Info Text</Modal.Body>
+          <Modal.Body>Coming soon!</Modal.Body>
         </Modal>
       </>
     );
