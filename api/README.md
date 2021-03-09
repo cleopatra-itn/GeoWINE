@@ -1,1 +1,0 @@
-# GeoWINE: Geolocation Wiki-Image-News-Events
