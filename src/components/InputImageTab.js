@@ -21,8 +21,7 @@ class InputImageTab extends React.Component {
                 <Tab eventKey="selectImageTab" title="Select">
                     <SelectImage inputImageCallback={(newResponseData) => {this.props.appCallback(newResponseData)}} />
                 </Tab>
-                {/* <Tab eventKey="uploadImageTab" title="Upload"> */}
-                <Tab eventKey="disables" title="Upload" disabled>
+                <Tab eventKey="uploadImageTab" title="Upload">
                     <UploadImage inputImageCallback={(newResponseData) => {this.props.appCallback(newResponseData)}} />
                 </Tab>
             </Tabs>

@@ -78,27 +78,29 @@ class SelectImage extends React.Component {
       }
 
     handleClick () {
-        if (this.state.selectedTypeOption.length > 0) {
-            // POST data and get results
-            var data = {
-                id: IMAGES[this.state.activeIndex]['id'],
-                type: this.state.selectedTypeOption,
-                radius: this.state.selectedRadiusOption,
-            };
-            $("#overlay").fadeIn(300);
-            axios.post('/api/select_image_entities', data) // submit to api and get results
-                .then(response => {
-                    $("#overlay").fadeOut(300);
-                    this.props.inputImageCallback(response.data); // pass response data to parent
-                })
-                .catch(error => {
-                    this.setState({ errorMessage: error.message });
-                    $("#overlay").fadeOut(300);
-                    console.error('There was an error while requesting results for the selected image!', error);
-                });
-        } else {
-            alert('You need to select at least one type.');
+        if (this.state.selectedTypeOption.length === 0) {
+            alert('Please select at least one type.');
+            return 0;
         }
+
+        // POST data and get results
+        var data = {
+            id: IMAGES[this.state.activeIndex]['id'],
+            type: this.state.selectedTypeOption,
+            radius: this.state.selectedRadiusOption,
+        };
+        $("#overlay").fadeIn(300);
+        axios.post('/api/select_image_entities', data) // submit to api and get results
+            .then(response => {
+                $("#overlay").fadeOut(300);
+                this.props.inputImageCallback(response.data); // pass response data to parent
+            })
+            .catch(error => {
+                this.setState({ errorMessage: error.message });
+                $("#overlay").fadeOut(300);
+                alert(error.message);
+                console.error('There was an error while requesting results for the selected image!', error);
+            });
     }
 
     handleTypeChange (selectedTypeOption) {

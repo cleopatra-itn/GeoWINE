@@ -142,3 +142,7 @@
     font-weight: 500;
     color: #fff;
 }
+
+.fileContainer {
+  padding: 0;
+}

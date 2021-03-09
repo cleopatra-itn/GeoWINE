@@ -49,7 +49,7 @@ class Map extends React.Component {
             data: this.props.mapData,
             entities: [],
             modelCenter: [50.733334, 7.100000],
-            trueCenter: [50.733334, 7.100000],
+            trueCenter: {},
             zoom: 3,
             fixView: true,
             radius: 3500000,
@@ -124,7 +124,7 @@ class Map extends React.Component {
                                     Model prediction: {this.state.modelCenter.lat}, {this.state.modelCenter.lng}
                                 </Popup>
                             </Marker> : <></>}
-                            {this.state.showPrediction > 0 ?
+                        {this.state.showPrediction && JSON.stringify(this.state.trueCenter) !== '{}' ?
                             <Marker
                                 position={this.state.trueCenter}
                                 icon={GoldIconCCW}
