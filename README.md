@@ -14,7 +14,7 @@ The following packages are arrequired:
 - [Yarn](https://yarnpkg.com/)
 
 ### Backend
-Our backend is served as a Python Flask application. The following libraries are required:
+We serve our [Flask](https://flask.palletsprojects.com/en/1.1.x/) backend using [Waitress](https://docs.pylonsproject.org/projects/waitress/en/latest/) pure-Python WSGI server. The following libraries are required:
 
 - Python version >= 3.7
 - PyTorch version = 1.5.1
