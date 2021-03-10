@@ -48,7 +48,7 @@ On [package.json](package.json), we have configured the proxy address for redire
 Similarly,  we can run our backend using the yarn package:
 
 ``` bash
-# start frontend
+# start backend
 yarn start-api
 ```
 
