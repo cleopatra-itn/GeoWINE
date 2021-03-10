@@ -119,7 +119,7 @@ class GeoWINE():
         image = self._read_image_from_path(path)
         return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords, k=k)
 
-    def retrieve_entities_with_pil_path(self, image, radius=25, entity_type=['Q570116'], true_coords={}, k=50):
+    def retrieve_entities_with_pil_image(self, image, radius=25, entity_type=['Q570116'], true_coords={}, k=50):
         return self._retrieve_entities(image=image, radius=radius, entity_type=entity_type, true_coords=true_coords, k=k)
 
     def retrieve_news_events(self, entity):

@@ -51,4 +51,4 @@ def query_upload_image():
 
     pil_image = ImageReader.read_and_resize(image_file.stream)
 
-    return geowine.retrieve_entities_with_pil_path(image=pil_image, radius=radius, entity_type=query_types)
+    return geowine.retrieve_entities_with_pil_image(image=pil_image, radius=radius, entity_type=query_types)
