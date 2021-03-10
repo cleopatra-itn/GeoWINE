@@ -1,61 +1,12 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
 import ImageGallery from 'react-image-gallery';
 import axios from 'axios';
 import RangeSlider from 'react-bootstrap-range-slider';
 import $ from 'jquery';
-
-const IMAGES = [
-    {
-      original: require('images/input/notreparis.jpg').default,
-      thumbnail: require('images/input/notreparis.jpg').default,
-      id: 'notreparis.jpg'
-    },
-    {
-        original: require('images/input/noterdam.jpeg').default,
-        thumbnail: require('images/input/noterdam.jpeg').default,
-        id: 'noterdam.jpeg'
-    },
-    {
-        original: require('images/input/timessquare.jpeg').default,
-        thumbnail: require('images/input/timessquare.jpeg').default,
-        id: 'timessquare.jpeg'
-    },
-    {
-        original: require('images/input/vatican.jpeg').default,
-        thumbnail: require('images/input/vatican.jpeg').default,
-        id: 'vatican.jpeg'
-    }
-];
-
-const optionsTypes = [
-    { value: 'tourist attraction', label: 'Tourist Attraction' },
-    { value: 'church', label: 'Church' },
-    { value: 'skyscraper', label: 'Skyscraper' },
-    { value: 'tower', label: 'Tower' },
-    { value: 'building', label: 'Building' },
-    { value: 'monument', label: 'Monument' },
-    { value: 'historic', label: 'Historic' },
-    { value: 'bridge', label: 'Bridge' },
-    { value: 'museum', label: 'Museum' },
-    { value: 'square', label: 'Square' },
-    { value: 'castle', label: 'Castle' },
-    { value: 'waterfall', label: 'Waterfall' }
-];
-
-const ValueContainer = ({ children, getValue, ...props }) => {
-    var length = getValue().length;
-
-    return (
-      <components.ValueContainer {...props}>
-        {!props.selectProps.menuIsOpen &&
-          `${length} selected`}
-        {React.cloneElement(children[1])}
-      </components.ValueContainer>
-    );
-  };
+import { IMAGES, TYPES, ValueContainer } from 'components/Constants';
 
 class SelectImage extends React.Component {
     constructor(props) {
@@ -69,7 +20,7 @@ class SelectImage extends React.Component {
             useBrowserFullscreen: false,
 			activeIndex: 0,
 			errorMessage: '',
-            selectedTypeOption: [optionsTypes[0]],
+            selectedTypeOption: [TYPES[0]],
             selectedRadiusOption: 10
         };
 
@@ -132,7 +83,7 @@ class SelectImage extends React.Component {
                             <Select
                                 value={this.state.selectedTypeOption}
                                 onChange={this.handleTypeChange}
-                                options={optionsTypes}
+                                options={TYPES}
                                 isMulti
                                 className="basic-multi-select"
                                 classNamePrefix="select"

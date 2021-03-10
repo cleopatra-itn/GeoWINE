@@ -2,37 +2,11 @@ import React from 'react';
 import ImageUploader from "react-images-upload";
 import { Button, Card } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
 import axios from 'axios';
 import RangeSlider from 'react-bootstrap-range-slider';
 import $ from 'jquery';
-
-const optionsTypes = [
-    { value: 'tourist attraction', label: 'Tourist Attraction' },
-    { value: 'church', label: 'Church' },
-    { value: 'skyscraper', label: 'Skyscraper' },
-    { value: 'tower', label: 'Tower' },
-    { value: 'building', label: 'Building' },
-    { value: 'monument', label: 'Monument' },
-    { value: 'historic', label: 'Historic' },
-    { value: 'bridge', label: 'Bridge' },
-    { value: 'museum', label: 'Museum' },
-    { value: 'square', label: 'Square' },
-    { value: 'castle', label: 'Castle' },
-    { value: 'waterfall', label: 'Waterfall' }
-];
-
-const ValueContainer = ({ children, getValue, ...props }) => {
-    var length = getValue().length;
-
-    return (
-      <components.ValueContainer {...props}>
-        {!props.selectProps.menuIsOpen &&
-          `${length} selected`}
-        {React.cloneElement(children[1])}
-      </components.ValueContainer>
-    );
-  };
+import { TYPES, ValueContainer } from 'components/Constants';
 
 class UploadImage extends React.Component {
     constructor(props) {
@@ -40,7 +14,7 @@ class UploadImage extends React.Component {
         this.state = {
             imageFIle: [],
             previewImage: '',
-            selectedTypeOption: [optionsTypes[0]],
+            selectedTypeOption: [TYPES[0]],
             selectedRadiusOption: 10,
             errorMessage: '',
         };
@@ -124,7 +98,7 @@ class UploadImage extends React.Component {
                                 <Select
                                     value={this.state.selectedTypeOption}
                                     onChange={this.handleTypeChange}
-                                    options={optionsTypes}
+                                    options={TYPES}
                                     isMulti
                                     className="basic-multi-select"
                                     classNamePrefix="select"
