@@ -23,7 +23,7 @@ def selected_image_entities():
     data = request.get_json()
 
     id = data['id']
-    img_path = f'{ROOT_PATH}/{SAMPLE_DATA[id]["image"]}'
+    img_path = f'{ROOT_PATH.parent}/{SAMPLE_DATA[id]["image"]}'
     true_coords = SAMPLE_DATA[id]['true_coords']
 
     radius = data['radius']

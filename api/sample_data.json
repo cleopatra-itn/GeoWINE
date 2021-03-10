@@ -1,18 +1,186 @@
 {
-    "notreparis.jpg": {
-        "image": "sample_images/notreparis.jpg",
-        "true_coords": [48.852966, 2.349902]
+    "Q11259.jpeg": {
+        "image": "src/images/input/Q11259.jpeg",
+        "true_coords": [40.75773, -73.985708],
+        "category": {
+            "Q570116": "tourist attraction"
+        },
+        "label": "Times Square",
+        "wikidata": "Q11259"
     },
-    "noterdam.jpeg": {
-        "image": "sample_images/noterdam.jpeg",
-        "true_coords": [48.852966, 2.349902]
+	"Q20410627.jpg": {
+        "image": "src/images/input/Q20410627.jpg",
+        "true_coords": [4.89794444, 114.92177778],
+        "category": {
+            "Q32815": "mosque"
+        },
+        "label": "Jame 'Asr Hassanil Bolkiah",
+        "wikidata": "Q20410627"
     },
-    "timessquare.jpeg": {
-        "image": "sample_images/timessquare.jpeg",
-        "true_coords": [40.758896, -73.985130]
+	"Q4994352.jpg": {
+        "image": "src/images/input/Q4994352.jpg",
+        "true_coords": [42.199361, 2.701528],
+        "category": {
+            "Q41176": "building",
+            "Q158438": "arch bridge",
+            "Q3397526": "stone bridge",
+            "Q4989906": "monument"
+        },
+        "label": "Pont de Besal\u00fa",
+        "wikidata": "Q4994352"
     },
-    "vatican.jpeg": {
-        "image": "sample_images/vatican.jpeg",
-        "true_coords": [41.904755, 12.454628]
+	"Q2630165.jpg": {
+        "image": "src/images/input/Q2630165.jpg",
+        "true_coords": [38.79635278, -9.39603056],
+        "category": {
+            "Q22698": "park",
+            "Q33506": "museum",
+            "Q210272": "cultural heritage",
+            "Q12292478": "estate"
+        },
+        "label": "Quinta da Regaleira",
+        "wikidata": "Q2630165"
+    },
+	"Q134883.jpg": {
+        "image": "src/images/input/Q134883.jpg",
+        "true_coords": [43.642752777, -79.387147222],
+        "category": {
+            "Q570116": "tourist attraction",
+            "Q1440300": "observation tower",
+            "Q2319498": "landmark",
+            "Q11166728": "TV tower"
+        },
+        "label": "CN Tower",
+        "wikidata": "Q134883"
+    },
+	"Q2981.jpeg": {
+        "image": "src/images/input/Q2981.jpeg",
+        "true_coords": [48.853, 2.3499999],
+        "category": {
+            "Q570116": "tourist attraction",
+			"Q56242215": "Catholic cathedral",
+			"Q120560": "minor basilica",
+			"Q317557": "parish church"
+        },
+        "label": "Notre-Dame de Paris",
+        "wikidata": "Q2981"
+    },
+	"Q5788.jpg": {
+        "image": "src/images/input/Q5788.jpg",
+        "true_coords": [30.328888888, 35.440277777 ],
+        "category": {
+            "Q839954": "archaeological site",
+			"Q570116": "tourist attraction",
+			"Q1144458": "archaeological field survey"
+        },
+        "label": "Petra",
+        "wikidata": "Q5788"
+    },
+	"Q9141.jpeg": {
+        "image": "src/images/input/Q9141.jpeg",
+        "true_coords": [27.174166666, 78.042222222],
+        "category": {
+            "Q570116": "tourist attraction",
+			"Q162875": "mausoleum"
+        },
+        "label": "Taj Mahal",
+        "wikidata": "Q9141"
+    },
+	"Q9202.jpg": {
+        "image": "src/images/input/Q9202.jpg",
+        "true_coords": [40.689209166, -74.044425277],
+        "category": {
+            "Q839954": "archaeological site",
+			"Q570116": "tourist attraction",
+			"Q179700":"statue",
+			"Q358": "heritage site"
+        },
+        "label": "Statue of Liberty",
+        "wikidata": "Q9202"
+    },
+	"Q12495.jpg": {
+        "image": "src/images/input/Q12495.jpg",
+        "true_coords": [25.197222, 55.274167],
+        "category": {
+            "Q11303": "skyscraper",
+			"Q570116": "tourist attraction",
+			"Q2319498": "landmark"
+        },
+        "label": "Burj Khalifa",
+        "wikidata": "Q12495"
+    },
+	"Q36332.jpg": {
+        "image": "src/images/input/Q36332.jpg",
+        "true_coords": [-25.695277777, -54.436666666],
+        "category": {
+            "Q34038": "waterfall",
+			"Q570116": "tourist attraction"
+        },
+        "label": "Iguaçu Falls",
+        "wikidata": "Q36332"
+    },
+	"Q45178.jpg": {
+        "image": "src/images/input/Q45178.jpg",
+        "true_coords": [-33.857058, 151.214897],
+        "category": {
+            "Q38048707": "historical cultural heritage site",
+			"Q570116": "tourist attraction",
+			"Q2319498": "landmark"
+
+        },
+        "label": "Sydney Opera House",
+        "wikidata": "Q45178"
+    },
+	"Q79961.jpg": {
+        "image": "src/images/input/Q79961.jpg",
+        "true_coords": [-22.952331, -43.210369],
+        "category": {
+            "Q570116": "tourist attraction",
+			"Q29168169": "colossal statue of Jesus"
+        },
+        "label": "Christ the Redeemer",
+        "wikidata": "Q79961"
+    },
+	"Q133274.jpg": {
+        "image": "src/images/input/Q133274.jpg",
+        "true_coords": [55.751667, 37.617778],
+        "category": {
+            "Q15243209": "historic district",
+			"Q570116": "tourist attraction",
+			"Q16831714": "government building"
+        },
+        "label": "Kremlin",
+        "wikidata": "Q133274"
+    },
+	"Q676203.jpg": {
+        "image": "src/images/input/Q676203.jpg",
+        "true_coords": [-13.163056, -72.545556],
+        "category": {
+            "Q570116": "tourist attraction",
+			"Q839954":"archaeological site",
+			"Q15661340": "ancient city"
+        },
+        "label": "Machu Picchu",
+        "wikidata": "Q676203"
+    },
+	"Q1045876.jpg": {
+        "image": "src/images/input/Q1045876.jpg",
+        "true_coords": [13.751389, 100.492778],
+        "category": {
+            "Q570116": "tourist attraction",
+			"Q427287": "wat"
+        },
+        "label": "Wat Phra Kaeo",
+        "wikidata": "Q1045876"
+    },
+	"Q13217298.jpg": {
+        "image": "src/images/input/Q13217298.jpg",
+        "true_coords": [29.983333, 31.133333],
+        "category": {
+            "Q839954": "archaeological site",
+			"Q209287": "Wonders of the World"
+        },
+        "label": "Giza Pyramids",
+        "wikidata": "Q13217298"
     }
 }
