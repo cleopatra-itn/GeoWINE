@@ -1,7 +1,7 @@
 {
     "Q11259.jpeg": {
         "image": "src/images/input/Q11259.jpeg",
-        "true_coords": [40.75773, -73.985708],
+        "true_coords": [40.75783, -73.985808],
         "category": {
             "Q570116": "tourist attraction"
         },
@@ -10,7 +10,7 @@
     },
 	"Q20410627.jpg": {
         "image": "src/images/input/Q20410627.jpg",
-        "true_coords": [4.89794444, 114.92177778],
+        "true_coords": [4.89795444, 114.92187778],
         "category": {
             "Q32815": "mosque"
         },
@@ -19,7 +19,7 @@
     },
 	"Q4994352.jpg": {
         "image": "src/images/input/Q4994352.jpg",
-        "true_coords": [42.199361, 2.701528],
+        "true_coords": [42.199461, 2.701628],
         "category": {
             "Q41176": "building",
             "Q158438": "arch bridge",
@@ -31,7 +31,7 @@
     },
 	"Q2630165.jpg": {
         "image": "src/images/input/Q2630165.jpg",
-        "true_coords": [38.79635278, -9.39603056],
+        "true_coords": [38.79645278, -9.39613056],
         "category": {
             "Q22698": "park",
             "Q33506": "museum",
@@ -43,7 +43,7 @@
     },
 	"Q134883.jpg": {
         "image": "src/images/input/Q134883.jpg",
-        "true_coords": [43.642752777, -79.387147222],
+        "true_coords": [43.642852777, -79.387247222],
         "category": {
             "Q570116": "tourist attraction",
             "Q1440300": "observation tower",
@@ -55,7 +55,7 @@
     },
 	"Q2981.jpeg": {
         "image": "src/images/input/Q2981.jpeg",
-        "true_coords": [48.853, 2.3499999],
+        "true_coords": [48.8531, 2.3491000],
         "category": {
             "Q570116": "tourist attraction",
 			"Q56242215": "Catholic cathedral",
@@ -67,7 +67,7 @@
     },
 	"Q5788.jpg": {
         "image": "src/images/input/Q5788.jpg",
-        "true_coords": [30.328888888, 35.440277777 ],
+        "true_coords": [30.328988888, 35.440177777 ],
         "category": {
             "Q839954": "archaeological site",
 			"Q570116": "tourist attraction",
@@ -78,7 +78,7 @@
     },
 	"Q9141.jpeg": {
         "image": "src/images/input/Q9141.jpeg",
-        "true_coords": [27.174166666, 78.042222222],
+        "true_coords": [27.174266666, 78.042322222],
         "category": {
             "Q570116": "tourist attraction",
 			"Q162875": "mausoleum"
@@ -88,7 +88,7 @@
     },
 	"Q9202.jpg": {
         "image": "src/images/input/Q9202.jpg",
-        "true_coords": [40.689209166, -74.044425277],
+        "true_coords": [40.689309166, -74.044525277],
         "category": {
             "Q839954": "archaeological site",
 			"Q570116": "tourist attraction",
@@ -100,7 +100,7 @@
     },
 	"Q12495.jpg": {
         "image": "src/images/input/Q12495.jpg",
-        "true_coords": [25.197222, 55.274167],
+        "true_coords": [25.197322, 55.274267],
         "category": {
             "Q11303": "skyscraper",
 			"Q570116": "tourist attraction",
@@ -111,7 +111,7 @@
     },
 	"Q36332.jpg": {
         "image": "src/images/input/Q36332.jpg",
-        "true_coords": [-25.695277777, -54.436666666],
+        "true_coords": [-25.695377777, -54.436766666],
         "category": {
             "Q34038": "waterfall",
 			"Q570116": "tourist attraction"
@@ -121,7 +121,7 @@
     },
 	"Q45178.jpg": {
         "image": "src/images/input/Q45178.jpg",
-        "true_coords": [-33.857058, 151.214897],
+        "true_coords": [-33.857158, 151.21997],
         "category": {
             "Q38048707": "historical cultural heritage site",
 			"Q570116": "tourist attraction",
@@ -133,7 +133,7 @@
     },
 	"Q79961.jpg": {
         "image": "src/images/input/Q79961.jpg",
-        "true_coords": [-22.952331, -43.210369],
+        "true_coords": [-22.952431, -43.210469],
         "category": {
             "Q570116": "tourist attraction",
 			"Q29168169": "colossal statue of Jesus"
@@ -143,7 +143,7 @@
     },
 	"Q133274.jpg": {
         "image": "src/images/input/Q133274.jpg",
-        "true_coords": [55.751667, 37.617778],
+        "true_coords": [55.751767, 37.617878],
         "category": {
             "Q15243209": "historic district",
 			"Q570116": "tourist attraction",
@@ -154,7 +154,7 @@
     },
 	"Q676203.jpg": {
         "image": "src/images/input/Q676203.jpg",
-        "true_coords": [-13.163056, -72.545556],
+        "true_coords": [-13.163156, -72.545656],
         "category": {
             "Q570116": "tourist attraction",
 			"Q839954":"archaeological site",
@@ -165,7 +165,7 @@
     },
 	"Q1045876.jpg": {
         "image": "src/images/input/Q1045876.jpg",
-        "true_coords": [13.751389, 100.492778],
+        "true_coords": [13.751489, 100.492878],
         "category": {
             "Q570116": "tourist attraction",
 			"Q427287": "wat"
@@ -175,7 +175,7 @@
     },
 	"Q13217298.jpg": {
         "image": "src/images/input/Q13217298.jpg",
-        "true_coords": [29.983333, 31.133333],
+        "true_coords": [29.983433, 31.133433],
         "category": {
             "Q839954": "archaeological site",
 			"Q209287": "Wonders of the World"
