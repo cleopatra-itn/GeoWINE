@@ -36,10 +36,10 @@ class OekgEventsApi:
 
         try:
             results = self._get_query_results(query)
-            return results['results']['bindings']
+            return results['results']['bindings'] if results else []
         except Exception as e:
             print(e)
-            return None
+            return []
 
     def _get_query_results(self, query):
         self.sparql.setQuery(query)
