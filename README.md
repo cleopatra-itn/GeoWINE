@@ -58,4 +58,12 @@ In order to run the backend properly, you will need to cache the entity embeddin
 The repository is under [MIT License](LICENSE).
 
 ## Cite
-Coming Soon!
+```bash
+@inproceedings{tahmasebzadeh2021geowine,
+  title={GeoWINE: Geolocation based Wiki, Image, News and Event Retrieval},
+  author={Tahmasebzadeh, Golsa and Kacupaj, Endri and M{\"u}ller-Budack, Eric and Hakimov, Sherzod and Lehmann, Jens and Ewerth, Ralph},
+  booktitle={Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages={2565--2569},
+  year={2021}
+}
+```
